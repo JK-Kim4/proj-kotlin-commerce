@@ -8,7 +8,7 @@ class ProductResponse {
 
     class Products (val products: List<ProductResponse.Product>)
 
-    class Popular (val id: Long, val name: String, val popularityRang: Int, val salesCount: Int)
+    class Popular (val id: Long, val name: String, val popularityRank: Int, val salesCount: Int)
 
     class Populars (val products: List<ProductResponse.Popular>)
 
