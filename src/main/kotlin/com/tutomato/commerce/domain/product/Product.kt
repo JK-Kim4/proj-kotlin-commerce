@@ -7,6 +7,7 @@ class Product (
     val id: Long,
     val info: ProductInfo,
     val saleStatus: SaleStatus,
+    val category: Category,
     val availableOption: Options,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
