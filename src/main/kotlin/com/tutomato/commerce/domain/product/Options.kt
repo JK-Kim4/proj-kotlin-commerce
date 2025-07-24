@@ -4,9 +4,38 @@ class Options(
     val options: List<Option>,
 ) {
 
-    /*옵션 충족 여부 검증*/
+    fun size() : Int {
+        return options.size
+    }
+
     fun hasMatchesOption(option: Option) : Boolean {
         return options.any { it.matches(option) }
+    }
+
+    fun hasEqualOption(option: Option) : Boolean {
+        return options.contains(option)
+    }
+
+    fun getStockByOption(option: Option): Stock? {
+        return options.first { it.matches(option) }.stock
+    }
+
+    fun add(option: Option): Options {
+        if (hasEqualOption(option)) {
+            throw IllegalArgumentException("Option already exists")
+        }
+
+        val newList = options + option // 기존 리스트에 새 옵션 추가
+        return Options(newList)
+    }
+
+    fun remove(option: Option): Options {
+        val newList = options - option
+        return Options(newList)
+    }
+
+    fun optionAt(index: Int): Option {
+        return options[index]
     }
 
 }

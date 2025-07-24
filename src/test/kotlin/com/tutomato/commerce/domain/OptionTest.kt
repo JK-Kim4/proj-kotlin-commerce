@@ -1,6 +1,9 @@
 package com.tutomato.commerce.domain
 
-import com.tutomato.commerce.domain.product.*
+import com.tutomato.commerce.domain.product.Color
+import com.tutomato.commerce.domain.product.Option
+import com.tutomato.commerce.domain.product.Size
+import com.tutomato.commerce.domain.product.Stock
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -12,7 +15,6 @@ class OptionTest() {
     @BeforeEach
     fun setup() {
         option = Option(
-            Category.TOP,
             Color("#ff0000"),
             Size.L,
             Stock(10)
@@ -23,7 +25,6 @@ class OptionTest() {
     fun `옵션_조건이_모두_일치하면_true를_반환한다`() {
         //given
         val equalOption = Option(
-            Category.TOP,
             Color("#ff0000"),
             Size.L,
             Stock(10)
@@ -37,7 +38,6 @@ class OptionTest() {
     fun `옵션_일부_조건이_null이면_해당_조건을_무시하고_비교한다`() {
         //given
         val nullFieldOption = Option(
-            null,
             Color("#ff0000"),
             null,
             Stock(10)
@@ -51,7 +51,6 @@ class OptionTest() {
     fun `옵션_조건이_일치하지_않으면_false를_반환한다`() {
         //given
         val notEqualOption = Option(
-            Category.BOTTOM,
             Color("#ffffff"),
             Size.XS,
             Stock(10)
@@ -70,12 +69,6 @@ class OptionTest() {
     @Test
     fun `색상 일치 여부를 반환한다`() {
         assertThat(option.isEqualColor(Color("#ff0000"))).isTrue()
-    }
-
-    @Test
-    fun `카테코리 일치 여부를 반환한다`() {
-        assertThat(option.isEqualCategory(Category.TOP)).isTrue()
-        assertThat(option.isEqualCategory(Category.BOTTOM)).isFalse()
     }
 
 }

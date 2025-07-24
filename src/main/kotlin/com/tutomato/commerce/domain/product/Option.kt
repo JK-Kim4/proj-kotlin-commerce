@@ -2,7 +2,6 @@ package com.tutomato.commerce.domain.product
 
 class Option (
 
-
     val color: Color?,
     val size: Size?,
     val stock: Stock? = Stock(0),
@@ -20,6 +19,19 @@ class Option (
 
     fun isEqualSize(size: Size) : Boolean {
         return this.size == size
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Option) return false
+
+        return color == other.color && size == other.size
+    }
+
+    override fun hashCode(): Int {
+        var result = color?.hashCode() ?: 0
+        result = 31 * result + (size?.hashCode() ?: 0)
+        return result
     }
 
 }

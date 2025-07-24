@@ -5,18 +5,48 @@ import java.time.LocalDateTime
 class Product (
 
     val id: Long,
-    val info: ProductInfo,
-    val saleStatus: SaleStatus,
+    var info: ProductInfo,
+    var saleStatus: SaleStatus,
     val category: Category,
-    val availableOption: Options,
+    var availableOptions: Options,
     val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime,
+    var updatedAt: LocalDateTime,
 
     ){
 
-    /*구매 가능 여부*/
     fun canOrder() : Boolean {
         return this.saleStatus == SaleStatus.ON_SALE;
+    }
+
+    fun getStockByOption(option: Option): Stock? {
+        return availableOptions.getStockByOption(option)
+    }
+
+    fun addOption(option: Option) {
+        availableOptions = availableOptions.add(option)
+    }
+
+    fun removeOption(option: Option) {
+        availableOptions = availableOptions.remove(option)
+    }
+
+    fun updateProductInfo(info: ProductInfo) {
+        this.info = info;
+    }
+
+    fun stopSales(processDate: LocalDateTime) {
+        this.saleStatus = SaleStatus.SALE_STOPPED
+        this.updatedAt = processDate
+    }
+
+    fun soldOut(processDate: LocalDateTime) {
+        this.saleStatus = SaleStatus.SOLD_OUT
+        this.updatedAt = processDate
+    }
+
+    fun resumeSales(processDate: LocalDateTime) {
+        this.saleStatus = SaleStatus.SALE_STOPPED
+        this.updatedAt = processDate
     }
 
 }
