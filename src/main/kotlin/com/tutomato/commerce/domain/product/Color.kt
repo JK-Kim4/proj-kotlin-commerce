@@ -1,5 +1,8 @@
 package com.tutomato.commerce.domain.product
 
+import jakarta.persistence.Embeddable
+
+@Embeddable
 class Color(
 
     val code: String,

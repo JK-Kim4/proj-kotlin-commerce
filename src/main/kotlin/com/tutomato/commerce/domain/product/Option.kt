@@ -1,9 +1,20 @@
 package com.tutomato.commerce.domain.product
 
+import jakarta.persistence.*
+
+@Entity
 class Option (
 
+    @Id
+    val id: Long,
+
+    @Embedded
     val color: Color?,
+
+    @Enumerated(EnumType.STRING)
     val size: Size?,
+
+    @Embedded
     val stock: Stock? = Stock(0),
 
 ) {

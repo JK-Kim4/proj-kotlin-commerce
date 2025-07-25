@@ -1,15 +1,33 @@
 package com.tutomato.commerce.domain.product
 
+import jakarta.persistence.*
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
 import java.time.LocalDateTime
 
+@Entity
 class Product (
 
+    @Id
     val id: Long,
+
+    @Embedded
     var info: ProductInfo,
+
+    @Enumerated(EnumType.STRING)
     var saleStatus: SaleStatus,
+
+    @Enumerated(EnumType.STRING)
     val category: Category,
+
+    @Embedded
     var availableOptions: Options,
+
+    @CreatedDate
+    @Column(updatable = false)
     val createdAt: LocalDateTime,
+
+    @LastModifiedDate
     var updatedAt: LocalDateTime,
 
     ){
