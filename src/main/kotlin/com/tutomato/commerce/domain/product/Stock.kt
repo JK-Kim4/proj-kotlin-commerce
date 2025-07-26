@@ -9,6 +9,14 @@ class Stock(
 
 ) {
 
+    fun decrease(amount : Int) : Stock{
+        if(amount > stock) {
+            throw IllegalArgumentException("Amount can't be greater than stock")
+        }
+
+        return Stock(stock - amount)
+    }
+
     fun hasStock() : Boolean {
         return this.stock > 0
     }

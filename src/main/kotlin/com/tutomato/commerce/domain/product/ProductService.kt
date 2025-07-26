@@ -22,6 +22,20 @@ class ProductService(private val productRepository: ProductRepository) {
         return ProductResult.Products.from(products)
     }
 
+    fun decreaseStock(command : ProductCommand.DecreaseStock) {
+        // 옵션 조회
+        var product = productRepository.findById(command.productId)
+            .orElseThrow()
+        var option = product.optionById(command.optionId)
+
+        // 재고 차감
+        option.decreaseStock(command.decreaseAmount)
+
+        //영속화
+        productRepository.save(option)
+
+    }
+
 
 }
 

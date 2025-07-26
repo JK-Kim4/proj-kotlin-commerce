@@ -13,7 +13,7 @@ class Option (
     val size: Size?,
 
     @Embedded
-    val stock: Stock? = Stock(0),
+    var stock: Stock? = Stock(0),
 
 ) {
 
@@ -22,6 +22,10 @@ class Option (
 
     @Column(name = "product_id")
     var productId: Long? = null
+
+    fun decreaseStock(amount: Int) {
+        stock = stock!!.decrease(amount)
+    }
 
     fun matches(target: Option): Boolean {
         return (target.color == null || target.color == this.color) &&

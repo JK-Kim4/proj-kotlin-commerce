@@ -1,5 +1,6 @@
 package com.tutomato.commerce.infrastructure.product
 
+import com.tutomato.commerce.domain.product.Option
 import com.tutomato.commerce.domain.product.Product
 import com.tutomato.commerce.domain.product.ProductRepository
 import org.springframework.stereotype.Repository
@@ -21,6 +22,10 @@ class ProductRepositoryImpl(
         optionJpaRepository.saveAll(options.options)
     }
 
+    override fun save(option: Option) {
+        optionJpaRepository.save<Option>(option)
+    }
+
     override fun findAll(): List<Product> {
         var products = productJpaRepository.findAll()
 
@@ -34,5 +39,4 @@ class ProductRepositoryImpl(
     override fun findById(productId: Long): Optional<Product> {
         return productJpaRepository.findById(productId);
     }
-
 }

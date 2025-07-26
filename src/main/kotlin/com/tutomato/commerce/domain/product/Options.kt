@@ -52,4 +52,9 @@ class Options(
         return options[index]
     }
 
+    fun optionById(id: Long): Option {
+        return options.first { it.id == id }
+    }
+
+
 }

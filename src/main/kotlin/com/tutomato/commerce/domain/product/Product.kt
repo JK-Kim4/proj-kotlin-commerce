@@ -36,8 +36,8 @@ class Product (
         return this.saleStatus == SaleStatus.ON_SALE;
     }
 
-    fun getStockByOption(option: Option): Stock? {
-        return availableOptions?.getStockByOption(option)
+    fun optionById(optionId : Long) : Option {
+        return availableOptions!!.optionById(optionId)
     }
 
     fun addOption(option: Option) {

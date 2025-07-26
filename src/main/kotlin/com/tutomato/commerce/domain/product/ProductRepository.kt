@@ -11,4 +11,6 @@ interface ProductRepository {
 
     fun findAll() : List<Product>
 
+    fun save(option: Option)
+
 }

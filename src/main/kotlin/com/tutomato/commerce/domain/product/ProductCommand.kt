@@ -42,4 +42,10 @@ class ProductCommand {
         }
     }
 
+    class DecreaseStock(
+        val productId: Long,
+        val optionId : Long,
+        val decreaseAmount: Int,
+    )
+
 }
