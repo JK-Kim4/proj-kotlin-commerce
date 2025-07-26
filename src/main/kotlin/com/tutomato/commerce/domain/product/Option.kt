@@ -3,10 +3,8 @@ package com.tutomato.commerce.domain.product
 import jakarta.persistence.*
 
 @Entity
+@Table(name = "product_option")
 class Option (
-
-    @Id
-    val id: Long,
 
     @Embedded
     val color: Color?,
@@ -18,6 +16,12 @@ class Option (
     val stock: Stock? = Stock(0),
 
 ) {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
+
+    @Column(name = "product_id")
+    var productId: Long? = null
 
     fun matches(target: Option): Boolean {
         return (target.color == null || target.color == this.color) &&

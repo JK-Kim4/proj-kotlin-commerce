@@ -6,7 +6,6 @@ import jakarta.persistence.Embeddable
 class Color(
 
     val code: String,
-
 ) {
 
     override fun equals(other: Any?): Boolean {

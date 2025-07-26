@@ -12,6 +12,12 @@ class Options(
 
 ) {
 
+    constructor() : this(emptyList())
+
+    fun setProductId(productId: Long) {
+        options.forEach { it.productId = productId }
+    }
+
     fun size() : Int {
         return options.size
     }
