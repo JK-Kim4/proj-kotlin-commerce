@@ -7,12 +7,21 @@ import com.tutomato.commerce.domain.product.Stock
 
 class OptionDomainSupport {
 
-    fun 기본_옵션_생성() : Option{
-        return Option(Color("#ffffff"), Size.XS, Stock(10))
-    }
+    companion object {
+        fun 기본_옵션_생성() : Option{
+            return Option(Color("#ffffff"), Size.XS, Stock(10))
+        }
 
-    fun 옵션_생성_COLOR_SIZE(color: Color, size: Size) : Option {
-        return Option(color, size)
+        fun 옵션_생성_COLOR_SIZE(color: Color, size: Size) : Option {
+            return Option(color, size)
+        }
+
+        fun 옵션_생성_COLOR_SIZE_PRODUCTID(color: Color, size: Size, productId: Long) : Option {
+            var option = Option(color, size)
+            option.productId = productId
+
+            return option
+        }
     }
 
 }
