@@ -15,7 +15,6 @@ class ProductDomainSupport {
 
         fun 기본_상품_생성() : Product {
             return Product(
-                id = null,
                 info = defaultInfo,
                 saleStatus = SaleStatus.ON_SALE,
                 category = Category.TOP
@@ -24,7 +23,6 @@ class ProductDomainSupport {
 
         fun 상품_옵션_전달받아_상품_생성(option: Option) : Product{
             var product = Product(
-                id = null,
                 info = defaultInfo,
                 saleStatus = SaleStatus.ON_SALE,
                 category = Category.TOP
@@ -37,7 +35,6 @@ class ProductDomainSupport {
 
         fun 상품_옵션_목록을_전달받아_상품_생성(option: List<Option>) : Product{
             var product = Product(
-                id = null,
                 info = defaultInfo,
                 saleStatus = SaleStatus.ON_SALE,
                 category = Category.TOP

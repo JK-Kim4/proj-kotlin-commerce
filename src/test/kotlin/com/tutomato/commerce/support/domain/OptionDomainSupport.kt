@@ -9,15 +9,33 @@ class OptionDomainSupport {
 
     companion object {
         fun 기본_옵션_생성() : Option{
-            return Option(Color("#ffffff"), Size.XS, Stock(10))
+            return Option(
+                color = Color("#ffffff"),
+                size = Size.XS,
+                stock = Stock(10)
+            )
+        }
+
+        fun 옵션_생성_STOCK(stock: Int) : Option{
+            return Option(
+                color = Color("#ffffff"),
+                size = Size.XS,
+                stock = Stock(stock)
+            )
         }
 
         fun 옵션_생성_COLOR_SIZE(color: Color, size: Size) : Option {
-            return Option(color, size)
+            return Option(
+                color = color,
+                size = size,
+                )
         }
 
         fun 옵션_생성_COLOR_SIZE_PRODUCTID(color: Color, size: Size, productId: Long) : Option {
-            var option = Option(color, size)
+            var option = Option(
+                color = color,
+                size = size,
+            )
             option.productId = productId
 
             return option

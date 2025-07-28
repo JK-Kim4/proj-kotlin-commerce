@@ -15,9 +15,9 @@ class OptionTest() {
     @BeforeEach
     fun setup() {
         option = Option(
-            Color("#ff0000"),
-            Size.L,
-            Stock(10)
+            color = Color("#ff0000"),
+            size = Size.L,
+            stock = Stock(10),
         )
     }
 
@@ -25,9 +25,9 @@ class OptionTest() {
     fun `옵션_조건이_모두_일치하면_true를_반환한다`() {
         //given
         val equalOption = Option(
-            Color("#ff0000"),
-            Size.L,
-            Stock(10)
+            color = Color("#ff0000"),
+            size = Size.L,
+            stock = Stock(10),
         )
 
         //when then
@@ -38,9 +38,9 @@ class OptionTest() {
     fun `옵션_일부_조건이_null이면_해당_조건을_무시하고_비교한다`() {
         //given
         val nullFieldOption = Option(
-            Color("#ff0000"),
-            null,
-            Stock(10)
+            color = Color("#ff0000"),
+            size = null,
+            stock = Stock(10),
         )
 
         //when then
@@ -51,9 +51,9 @@ class OptionTest() {
     fun `옵션_조건이_일치하지_않으면_false를_반환한다`() {
         //given
         val notEqualOption = Option(
-            Color("#ffffff"),
-            Size.XS,
-            Stock(10)
+            color = Color("#ffffff"),
+            size = Size.XS,
+            stock = Stock(10),
         )
 
         //when then

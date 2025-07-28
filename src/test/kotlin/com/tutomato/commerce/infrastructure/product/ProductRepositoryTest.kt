@@ -14,8 +14,8 @@ import org.testcontainers.junit.jupiter.Testcontainers
 @SpringBootTest
 @Testcontainers
 class ProductRepositoryTest(
-    @Autowired val productRepository: ProductRepository,
-    @Autowired val optionJpaRepository: OptionJpaRepository
+    @Autowired var productRepository: ProductRepository,
+    @Autowired var optionJpaRepository: OptionJpaRepository
 ) {
 
     @Test
