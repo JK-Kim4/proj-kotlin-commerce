@@ -18,10 +18,10 @@ class Option (
 ) {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    var id: Long = 0
 
     @Column(name = "product_id")
-    var productId: Long? = null
+    var productId: Long = 0
 
     fun decreaseStock(amount: Int) {
         stock = stock!!.decrease(amount)

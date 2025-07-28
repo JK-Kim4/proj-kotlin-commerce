@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 class Product (
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = 0L,
+    var id: Long = 0L,
 
     @Embedded
     var info: ProductInfo,
@@ -21,7 +21,7 @@ class Product (
     val category: Category,
 
     @Transient
-    var availableOptions: Options? = Options(),
+    var availableOptions: Options = Options(),
 
     @CreatedDate
     @Column(updatable = false)
@@ -37,11 +37,11 @@ class Product (
     }
 
     fun optionById(optionId : Long) : Option {
-        return availableOptions!!.optionById(optionId)
+        return availableOptions.optionById(optionId)
     }
 
     fun addOption(option: Option) {
-        availableOptions = availableOptions?.add(option)
+        availableOptions = availableOptions.add(option)
     }
 
     fun addOptions(options: List<Option>) {
@@ -53,7 +53,7 @@ class Product (
     }
 
     fun removeOption(option: Option) {
-        availableOptions = availableOptions?.remove(option)
+        availableOptions = availableOptions.remove(option)
     }
 
     fun updateProductInfo(info: ProductInfo) {
