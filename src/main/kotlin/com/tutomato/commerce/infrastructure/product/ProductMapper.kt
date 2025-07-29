@@ -10,7 +10,7 @@ class ProductMapper {
         fun optionsMappingToProduct(options : List<Option>, product: List<Product>): List<Product> {
             return product.map { prod ->
                 prod.apply {
-                    addOptions(options.filter { it.productId == id })
+                    addOptions(options.filter { it.product?.equals(product) ?: false })
                 }
             }.toList()
         }

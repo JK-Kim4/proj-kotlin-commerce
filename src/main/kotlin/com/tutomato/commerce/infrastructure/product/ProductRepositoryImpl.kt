@@ -17,7 +17,8 @@ class ProductRepositoryImpl(
 
         var options = product.availableOptions
 
-        options.setProductId(product.id)
+        //options.setProductId(product.id)
+        options.setProduct(product)
 
         optionJpaRepository.saveAll(options.options)
     }

@@ -13,18 +13,18 @@ class Option (
     val size: Size?,
 
     @Embedded
-    var stock: Stock? = Stock(0),
+    var stock: Stock = Stock(0),
 
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    var product : Product ? = null
 ) {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0
 
-    @Column(name = "product_id")
-    var productId: Long = 0
-
     fun decreaseStock(amount: Int) {
-        stock = stock!!.decrease(amount)
+        stock = stock.decrease(amount)
     }
 
     fun matches(target: Option): Boolean {

@@ -1,21 +1,13 @@
 package com.tutomato.commerce.domain.product
 
-import jakarta.persistence.CascadeType
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.OneToMany
-
 class Options(
-
-    @OneToMany(cascade = [(CascadeType.ALL)], orphanRemoval = true)
-    @JoinColumn(name = "product_id")
     val options: List<Option>,
-
 ) {
 
     constructor() : this(emptyList())
 
-    fun setProductId(productId: Long) {
-        options.forEach { it.productId = productId }
+    fun setProduct(product : Product) {
+        options.forEach { it.product = product }
     }
 
     fun size() : Int {

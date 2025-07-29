@@ -29,7 +29,7 @@ class ProductResult (
                 category = product.category.name,
                 saleStatus = product.saleStatus.name,
                 options = options,
-                price = product.price.amount
+                price = product.price.value
             )
         }
     }
