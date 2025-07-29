@@ -1,14 +1,9 @@
 package com.tutomato.commerce.interfaces.order
 
-class OrderRequest {
+class Token (val token: String)
 
-    class Token (val token: String)
+class OrderLinesRequest (val orderLines: List<OrderLineRequest>)
 
-    class OrderLines (val orderLines: List<OrderLine>)
+class OrderLineRequest (val productId: Long, val quantity: Int)
 
-    class OrderLine (val productId: Long, val quantity: Int)
-
-    class Order (val orderId: Long)
-
-
-}
+class OrderRequest (val orderId: Long)
