@@ -9,7 +9,7 @@ import org.springframework.transaction.PlatformTransactionManager
 
 @Configuration
 @EnableJpaAuditing
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackages = ["com.tutomato.commerce"])
 class JpaConfig {
     @Bean
     fun transactionManager(): PlatformTransactionManager {
