@@ -48,6 +48,11 @@ class Options(
         return Options(newList)
     }
 
+    fun remove(optionId: Long): Options {
+        val newList = options.filter { it.id != optionId }
+        return Options(newList)
+    }
+
     fun optionAt(index: Int): Option {
         return options[index]
     }

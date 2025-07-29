@@ -31,6 +31,11 @@ data class DecreaseStock(
     val decreaseAmount: Int,
 )
 
+data class UpdateStatus(
+    val productId: Long,
+    val updateStatus : String,
+)
+
 data class OptionCommand(
     val colorCode: String,
     val size: String,

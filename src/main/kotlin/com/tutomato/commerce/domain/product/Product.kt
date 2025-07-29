@@ -33,7 +33,7 @@ class Product (
     ){
 
     fun canOrder() : Boolean {
-        return this.saleStatus == SaleStatus.ON_SALE;
+        return this.saleStatus == SaleStatus.ON_SALE
     }
 
     fun optionById(optionId : Long) : Option {
@@ -48,12 +48,16 @@ class Product (
         availableOptions = Options(options)
     }
 
-    fun getOptions() : Options? {
+    fun getOptions() : Options {
         return this.availableOptions
     }
 
     fun removeOption(option: Option) {
         availableOptions = availableOptions.remove(option)
+    }
+
+    fun removeOption(optionId : Long) {
+        availableOptions = availableOptions.remove(optionId)
     }
 
     fun updateProductInfo(info: ProductInfo) {
@@ -71,7 +75,7 @@ class Product (
     }
 
     fun resumeSales(processDate: LocalDateTime) {
-        this.saleStatus = SaleStatus.SALE_STOPPED
+        this.saleStatus = SaleStatus.ON_SALE
         this.updatedAt = processDate
     }
 
