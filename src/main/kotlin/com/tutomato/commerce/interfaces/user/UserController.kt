@@ -16,7 +16,7 @@ class UserController : UserApiSpec {
     @PostMapping
     override fun save(@RequestBody save: UserRequest.Save
     ): ResponseEntity<UserResponse.User> {
-        return ResponseEntity.ok(UserResponse.User(1L, "saved user", "savedUser@test.com"))
+        return ResponseEntity.ok(UserResponse.User(1L, save.name, save.email))
     }
 
 }

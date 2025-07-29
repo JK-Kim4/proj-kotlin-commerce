@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*
 import java.math.BigInteger
 
 @RestController
-@RequestMapping("/points")
+@RequestMapping("/api/points")
 class PointController: PointApiSpec {
 
     @GetMapping("/me")

@@ -4,6 +4,6 @@ class UserRequest {
 
     class Token (val token: String)
 
-    class Save (val email: String, val password: String)
+    class Save (val name: String, val email: String, val password: String)
 
 }

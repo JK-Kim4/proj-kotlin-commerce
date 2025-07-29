@@ -1,11 +1,7 @@
 package com.tutomato.commerce.interfaces.cart
 
-class CartRequest {
+data class Token (val token: String)
 
-    class Token (val token: String)
+data class CartItemsRequest (val items: List<CartItemRequest>)
 
-    class Items (val items: List<Item>)
-
-    class Item (val productId: Long, val quantity: Int)
-
-}
+data class CartItemRequest (val productId: Long, val quantity: Int)

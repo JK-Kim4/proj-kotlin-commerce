@@ -2,6 +2,7 @@ package com.tutomato.commerce.interfaces.payment
 
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.time.LocalDateTime
 
 @RestController
 @RequestMapping("/api/payment")
@@ -9,21 +10,21 @@ class PaymentController : PaymentApiSpec {
 
     @PostMapping
     override fun payment(
-        @RequestHeader("Authorization") authorization: PaymentRequest.Token,
+        @RequestHeader("Authorization") authorization: Token,
         @RequestBody paymentRequest: PaymentRequest
-    ): ResponseEntity<PaymentResponse.Payment> {
-        return ResponseEntity.ok(PaymentResponse.Payment(
-            1L, paymentRequest.orderId, "PAID"
+    ): ResponseEntity<PaymentResponse> {
+        return ResponseEntity.ok(PaymentResponse(
+            1L, paymentRequest.orderId, "PAID", LocalDateTime.of(2025, 1, 1, 1, 1).toString(),
         ))
     }
 
-    @PostMapping("/{paymentId}/cancel")
-    override fun cancel(
-        @RequestHeader("Authorization") authorization: PaymentRequest.Token,
+    @PostMapping("/{paymentId}/refund")
+    override fun refund(
+        @RequestHeader("Authorization") authorization: Token,
         @PathVariable paymentId: Long
-    ): ResponseEntity<PaymentResponse.Payment> {
-        return ResponseEntity.ok(PaymentResponse.Payment(
-            paymentId, 10L, "CANCELLED"
+    ): ResponseEntity<PaymentResponse> {
+        return ResponseEntity.ok(PaymentResponse(
+            paymentId, 10L, "CANCELLED", LocalDateTime.of(2025, 1, 1, 1, 1).toString(),
         ))
     }
 }

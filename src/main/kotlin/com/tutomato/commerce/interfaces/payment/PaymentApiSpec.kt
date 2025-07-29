@@ -4,8 +4,8 @@ import org.springframework.http.ResponseEntity
 
 interface PaymentApiSpec {
 
-    fun payment(authorization: PaymentRequest.Token, paymentRequest: PaymentRequest) : ResponseEntity<PaymentResponse.Payment>
+    fun payment(authorization: Token, paymentRequest: PaymentRequest) : ResponseEntity<PaymentResponse>
 
-    fun cancel(authorization: PaymentRequest.Token, paymentId: Long) : ResponseEntity<PaymentResponse.Payment>
+    fun refund(authorization: Token, paymentId: Long) : ResponseEntity<PaymentResponse>
 
 }

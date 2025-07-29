@@ -32,8 +32,8 @@ class ProductController: ProductApiSpec {
     override fun popular(): ResponseEntity<ProductResponse.Populars> {
         return ResponseEntity.ok(ProductResponse.Populars(listOf(
             ProductResponse.Popular(1L, "인기 판매 상품1", 1, 50),
-            ProductResponse.Popular(1L, "인기 판매 상품1", 1, 50),
-            ProductResponse.Popular(1L, "인기 판매 상품1", 1, 50),
+            ProductResponse.Popular(2L, "인기 판매 상품2", 2, 30),
+            ProductResponse.Popular(3L, "인기 판매 상품3", 3, 20),
         )))
     }
 
