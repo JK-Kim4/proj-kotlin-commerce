@@ -1,9 +1,5 @@
 package com.tutomato.commerce.interfaces.cart
 
-class CartResponse {
+data class CartResponse (val userId: Long, val items: List<CartItemResponse>)
 
-    class Cart(val userId: Long, val items: List<Item>)
-
-    class Item(val productId: Long, val quantity: Int)
-
-}
+data class CartItemResponse (val productId: Long, val quantity: Int)
