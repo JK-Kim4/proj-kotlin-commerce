@@ -23,7 +23,7 @@ class ProductServiceTest(
         product.addOption(option)
 
         productRepository.save(product)
-        val command = DecreaseStock(option.productId, option.id, 5);
+        val command = DecreaseStock(option.product!!.id, option.id, 5);
 
         //when
         productService.decreaseStock(command)
