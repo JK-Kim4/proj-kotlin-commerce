@@ -24,10 +24,10 @@ class PointControllerTest (
             .andExpect {
                 status().isOk
                 content().json(
-    """{
-                        "id": 1,
-                        "point": 50000
-                    }""".trimIndent())
+                    """{
+                            "id": 1,
+                            "point": 50000
+                        }""".trimIndent())
             }
             .andDo(document("points-me"))
     }
