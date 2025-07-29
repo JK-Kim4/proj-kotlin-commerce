@@ -1,9 +1,5 @@
-package com.tutomato.commerce.domain
+package com.tutomato.commerce.domain.product
 
-import com.tutomato.commerce.domain.product.Color
-import com.tutomato.commerce.domain.product.Option
-import com.tutomato.commerce.domain.product.Size
-import com.tutomato.commerce.domain.product.Stock
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

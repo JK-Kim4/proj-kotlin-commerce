@@ -16,6 +16,12 @@ class OptionDomainSupport {
             )
         }
 
+        fun 옵션_생성_고유번호(id: Long) : Option {
+            val option = 기본_옵션_생성()
+            option.id = id
+            return option
+        }
+
         fun 옵션_생성_STOCK(stock: Int) : Option{
             return Option(
                 color = Color("#ffffff"),

@@ -1,6 +1,5 @@
-package com.tutomato.commerce.domain
+package com.tutomato.commerce.domain.product
 
-import com.tutomato.commerce.domain.product.*
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
