@@ -1,7 +1,3 @@
 package com.tutomato.commerce.interfaces.payment
 
-class PaymentResponse {
-
-    class Payment(val paymentId: Long, val orderId: Long, val orderStatus: String)
-
-}
+data class PaymentResponse(val paymentId: Long, val orderId: Long, val orderStatus: String, val paymentDateTime: String)
