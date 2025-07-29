@@ -1,6 +1,8 @@
 package com.tutomato.commerce.support.domain
 
+import com.tutomato.commerce.common.model.Money
 import com.tutomato.commerce.domain.product.*
+import java.math.BigDecimal
 import java.time.LocalDate
 
 class ProductDomainSupport {
@@ -17,7 +19,8 @@ class ProductDomainSupport {
             return Product(
                 info = defaultInfo,
                 saleStatus = SaleStatus.ON_SALE,
-                category = Category.TOP
+                category = Category.TOP,
+                price = Money(BigDecimal.valueOf(5000))
             )
         }
 
@@ -25,7 +28,8 @@ class ProductDomainSupport {
             var product = Product(
                 info = defaultInfo,
                 saleStatus = SaleStatus.ON_SALE,
-                category = Category.TOP
+                category = Category.TOP,
+                price = Money(BigDecimal.valueOf(5000)),
             )
 
             product.addOption(option)
@@ -37,7 +41,8 @@ class ProductDomainSupport {
             var product = Product(
                 info = defaultInfo,
                 saleStatus = SaleStatus.ON_SALE,
-                category = Category.TOP
+                category = Category.TOP,
+                price = Money(BigDecimal.valueOf(5000)),
             )
 
             option.forEach { product.addOption(it) }
@@ -50,7 +55,8 @@ class ProductDomainSupport {
                 id = id,
                 info = defaultInfo,
                 saleStatus = SaleStatus.ON_SALE,
-                category = Category.TOP
+                category = Category.TOP,
+                price = Money(BigDecimal.valueOf(5000)),
             )
 
             return product

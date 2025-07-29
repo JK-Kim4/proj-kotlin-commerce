@@ -5,7 +5,6 @@ import com.tutomato.commerce.support.domain.ProductDomainSupport
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 class ProductTest {
@@ -13,11 +12,7 @@ class ProductTest {
 
     @Test
     fun `현재 상품의 주문 가능 여부를 검증한다`() {
-        val product = Product(
-            info = ProductInfo("test", "test product", LocalDate.now()),
-            saleStatus = SaleStatus.ON_SALE,
-            category = Category.TOP
-        )
+        val product = ProductDomainSupport.기본_상품_생성()
 
         assertThat(product.canOrder()).isTrue()
     }

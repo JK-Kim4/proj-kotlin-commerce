@@ -2,14 +2,25 @@ package com.tutomato.commerce.interfaces.product
 
 import java.math.BigDecimal
 
-class ProductResponse {
+class ProductResponse (
+    val id: Long,
+    val name: String,
+    val description: String,
+    val price : BigDecimal,
+    val stock: Int
+)
 
-    class Product (val id: Long, val name: String, val description: String, val price : BigDecimal, val stock: Int)
+class ProductResponses (
+    val products: List<ProductResponse>
+)
 
-    class Products (val products: List<ProductResponse.Product>)
+class PopularProductResponse (
+    val id: Long,
+    val name: String,
+    val popularityRank: Int,
+    val salesCount: Int
+)
 
-    class Popular (val id: Long, val name: String, val popularityRank: Int, val salesCount: Int)
-
-    class Populars (val products: List<ProductResponse.Popular>)
-
-}
+class PopularProductResponses (
+    val products: List<PopularProductResponse>
+)

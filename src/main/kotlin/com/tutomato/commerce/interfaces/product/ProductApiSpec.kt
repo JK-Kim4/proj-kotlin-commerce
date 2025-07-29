@@ -4,10 +4,10 @@ import org.springframework.http.ResponseEntity
 
 interface ProductApiSpec {
 
-    fun products(): ResponseEntity<ProductResponse.Products>
+    fun products(): ResponseEntity<ProductResponses>
 
-    fun product(id: Long): ResponseEntity<ProductResponse.Product>
+    fun product(id: Long): ResponseEntity<ProductResponse>
 
-    fun popular(): ResponseEntity<ProductResponse.Populars>
+    fun popular(): ResponseEntity<PopularProductResponses>
 
 }

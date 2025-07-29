@@ -1,5 +1,6 @@
 package com.tutomato.commerce.domain.product
 
+import com.tutomato.commerce.common.model.Money
 import jakarta.persistence.*
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
@@ -15,13 +16,20 @@ class Product (
     var info: ProductInfo,
 
     @Enumerated(EnumType.STRING)
-    var saleStatus: SaleStatus? = SaleStatus.ON_SALE,
+    var saleStatus: SaleStatus = SaleStatus.ON_SALE,
 
     @Enumerated(EnumType.STRING)
     val category: Category,
 
     @Transient
     var availableOptions: Options = Options(),
+
+    @AttributeOverride(
+        name = "value",
+        column = Column(name = "price")
+    )
+    @Embedded
+    val price: Money,
 
     @CreatedDate
     @Column(updatable = false)

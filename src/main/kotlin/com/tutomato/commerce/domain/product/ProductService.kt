@@ -35,14 +35,14 @@ class ProductService(private val productRepository: ProductRepository) {
     }
 
     @Transactional(readOnly = true)
-    fun findById(id : Long) : ProductResult.Product =
+    fun findById(id : Long) : ProductResult =
         productRepository.findById(id)
-            .let { ProductResult.Product.from(it) }
+            .let { ProductResult.from(it) }
 
     @Transactional(readOnly = true)
-    fun findAll(): ProductResult.Products =
+    fun findAll(): ProductResults =
         productRepository.findAll()
-            .let { ProductResult.Products.from(it) }
+            .let { ProductResults.from(it) }
 }
 
 
