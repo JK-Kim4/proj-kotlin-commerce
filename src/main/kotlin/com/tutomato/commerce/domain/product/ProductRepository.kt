@@ -3,14 +3,14 @@ package com.tutomato.commerce.domain.product
 
 interface ProductRepository {
 
-    fun save(product: Product)
+    fun save(product: Product): Product
 
-    fun findById(productId : Long) : Product
+    fun save(option: Option) : Option
+
+    fun findById(productId : Long) : Product?
 
     fun findAll() : List<Product>
 
-    fun findOptionById(optionId : Long) : Option
-
-    fun save(option: Option)
+    fun findOptionById(optionId : Long) : Option?
 
 }
