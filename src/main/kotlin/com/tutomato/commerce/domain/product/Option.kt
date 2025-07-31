@@ -5,6 +5,12 @@ import jakarta.persistence.*
 @Entity
 @Table(name = "product_option")
 class Option (
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long = 0,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
+    var product: Product? = null,
 
     @Embedded
     val color: Color?,
@@ -13,31 +19,21 @@ class Option (
     val size: Size?,
 
     @Embedded
-    var stock: Stock? = Stock(0),
+    var stock: Stock = Stock(0),
 
 ) {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0
-
-    @Column(name = "product_id")
-    var productId: Long = 0
+    fun hasEnoughStock(quantity: Int): Boolean {
+        return stock.hasEnoughStock(quantity)
+    }
 
     fun decreaseStock(amount: Int) {
-        stock = stock!!.decrease(amount)
+        stock = stock.decrease(amount)
     }
 
     fun matches(target: Option): Boolean {
         return (target.color == null || target.color == this.color) &&
                 (target.size == null || target.size == this.size)
-    }
-
-    fun isEqualColor(color: Color) : Boolean {
-        return this.color == color
-    }
-
-    fun isEqualSize(size: Size) : Boolean {
-        return this.size == size
     }
 
     override fun equals(other: Any?): Boolean {
