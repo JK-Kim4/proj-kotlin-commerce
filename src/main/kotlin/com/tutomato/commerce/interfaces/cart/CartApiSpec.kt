@@ -6,5 +6,7 @@ interface CartApiSpec {
 
     fun cart(authorization: Token) : ResponseEntity<CartResponse>
 
-    fun addCart(authorization: Token, items: CartItemsRequest) : ResponseEntity<CartResponse>
+    fun addItem(authorization: Token, items: CartItemsRequest) : ResponseEntity<CartResponse>
+
+    fun updateQuantity(authorization: Token, id: Long, items: CartItemUpdateRequest) : ResponseEntity<CartItemUpdateResponse>
 }

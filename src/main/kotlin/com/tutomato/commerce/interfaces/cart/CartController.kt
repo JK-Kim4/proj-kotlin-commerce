@@ -1,11 +1,14 @@
 package com.tutomato.commerce.interfaces.cart
 
+import com.tutomato.commerce.domain.cart.CartService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/carts")
-class CartController : CartApiSpec{
+class CartController(
+    private val cartService: CartService,
+) : CartApiSpec{
 
     @GetMapping("/me")
     override fun cart(
@@ -22,7 +25,7 @@ class CartController : CartApiSpec{
     }
 
     @PostMapping("/items")
-    override fun addCart(
+    override fun addItem(
         @RequestHeader("Authorization") authorization: Token,
         @RequestBody items: CartItemsRequest
     ): ResponseEntity<CartResponse> {
@@ -33,5 +36,14 @@ class CartController : CartApiSpec{
                     -> CartItemResponse(item.productId, item.quantity) }
                 .toList()
         ))
+    }
+
+    @PutMapping("/items/{id}")
+    override fun updateQuantity(
+        @RequestHeader("Authorization") authorization: Token,
+        @PathVariable(name = "id") id: Long,
+        @RequestBody items: CartItemUpdateRequest
+    ): ResponseEntity<CartItemUpdateResponse> {
+        TODO("Not yet implemented")
     }
 }
