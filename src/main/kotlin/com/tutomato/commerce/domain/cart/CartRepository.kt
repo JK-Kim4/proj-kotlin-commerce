@@ -15,6 +15,8 @@ interface CartRepository {
 
     fun findById(id: Long) : Cart?
 
+    fun findByUserId(userId: Long) : Cart?
+
     fun findItemById(id: Long) : CartItem?
 
 

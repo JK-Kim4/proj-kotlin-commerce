@@ -15,21 +15,29 @@ class CartService (
         return cartRepository.save(command.toEntity())
     }
 
-    fun save(command: CartCommand.SaveCartItem) : CartItem {
-        val cart = cartRepository.findById(command.cartId)
+    fun save(command: CartCommand.SaveCartItem) : Cart {
+        val cart = cartRepository.findByUserId(command.userId)
             ?: throw NoResultException("고유번호에 해당하는 장바구니가 존재하지않습니다.")
 
         cart.getItemByIds(command.productId, command.optionId)
             ?.let { throw InstanceAlreadyExistsException("이미 등록된 상품입니다.") }
 
-        return cartRepository.save(command.toEntity(cart))
+        val cartItem = cartRepository.save(command.toEntity(cart))
+        cart.addItem(cartItem)
+
+        return cart;
+    }
+
+    fun findByUserId(userId: Long) : Cart {
+        return cartRepository.findByUserId(userId)
+            ?: throw NoResultException("사용자의 장바구니가 존재하지않습니다.")
     }
 
     fun updateItemAmount(command : CartCommand.UpdateItemAmount) {
         val cartItem = cartRepository.findItemById(command.cartItemId)
             ?: throw NoResultException("고유번호에 해당하는 장바구니 상품이 존재하지않습니다.")
 
-        cartItem.updateAmount(command.updateAmount)
+        cartItem.updateQuantity(command.updateAmount)
         cartRepository.save(cartItem)
     }
 

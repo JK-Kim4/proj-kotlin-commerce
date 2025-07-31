@@ -10,12 +10,12 @@ class CartItem(
     @Id var id: Long = 0,
     val productId: Long,
     val optionId: Long,
-    var amount: Int,
+    var quantity: Int,
     @ManyToOne(fetch = FetchType.LAZY) val cart : Cart,
 ) {
 
-    fun updateAmount(amount: Int) {
-        this.amount = amount
+    fun updateQuantity(quantity: Int) {
+        this.quantity = quantity
     }
 
 }
