@@ -1,33 +1,33 @@
 package com.tutomato.commerce.infrastructure.product
 
-import com.tutomato.commerce.domain.product.Color
-import com.tutomato.commerce.domain.product.Size
 import com.tutomato.commerce.support.domain.OptionDomainSupport
 import com.tutomato.commerce.support.domain.ProductDomainSupport
+import org.assertj.core.api.Assertions.assertThat
+import org.hibernate.internal.util.collections.CollectionHelper.listOf
 import org.junit.jupiter.api.Test
 
 class ProductMapperTest {
 
     @Test
-    fun `상품 고유번호를 지표로 옵션객체 맵핑을 수행한다`() {
-        var product1 = ProductDomainSupport.고유번호를_보유한_상품객체_생성(1L)
-        var product2 = ProductDomainSupport.고유번호를_보유한_상품객체_생성(2L)
+    fun `동일한 상품에 대한 옵션 정보를 맵핑한다`() {
+        //given
+        val 상품1 = ProductDomainSupport.fixture(id = 1L, name = "상품 1")
+        val 상품2 = ProductDomainSupport.fixture(id = 2L, name = "상품 2")
+        val 옵션1_1 = OptionDomainSupport.fixture(1L, 상품1)
+        val 옵션1_2 = OptionDomainSupport.fixture(1L, 상품1)
+        val 옵션1_3 = OptionDomainSupport.fixture(1L, 상품1)
+        val 옵션2_1 = OptionDomainSupport.fixture(2L, 상품2)
+        val 옵션2_2 = OptionDomainSupport.fixture(2L, 상품2)
 
-        var option1 = OptionDomainSupport.옵션_생성_COLOR_SIZE_PRODUCTID(Color("f111111"), Size.XS, 1L)
-        var option2 = OptionDomainSupport.옵션_생성_COLOR_SIZE_PRODUCTID(Color("f111112"), Size.XS, 1L)
-        var option3 = OptionDomainSupport.옵션_생성_COLOR_SIZE_PRODUCTID(Color("f111111"), Size.XS, 2L)
-        var option4 = OptionDomainSupport.옵션_생성_COLOR_SIZE_PRODUCTID(Color("f111112"), Size.XS, 2L)
-
-
-        val products = ProductMapper.optionsMappingToProduct(
-            listOf(option1, option2, option3, option4),
-            listOf(product1, product2),
+        //when
+        val mappingResult = ProductMapper.optionsMappingToProduct(
+            listOf(상품1, 상품2),
+            listOf(옵션1_1, 옵션1_2, 옵션1_3, 옵션2_1, 옵션2_2)
         )
 
-        products.forEach { product ->
-            val allMatch = product.availableOptions!!.options.all { it.productId == product.id }
-            assert(allMatch) { "옵션의 productId가 상품의 id와 일치하지 않습니다: ${product.id}" }
-        }
+        assertThat(mappingResult.find { it.id == 1L }!!.availableOptions.options)
+            .containsExactly(옵션1_1, 옵션1_2, 옵션1_3)
+        assertThat(mappingResult.find { it.id == 2L }!!.availableOptions.options)
+            .containsExactly(옵션2_1, 옵션2_2)
     }
-
 }

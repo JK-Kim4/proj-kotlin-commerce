@@ -12,28 +12,26 @@ class ProductRepositoryImpl(
     private val optionJpaRepository: OptionJpaRepository
 ) : ProductRepository {
 
-    override fun save(product: Product) {
-        productJpaRepository.save(product)
-
-        var options = product.availableOptions
-
-        options.setProductId(product.id)
-
-        optionJpaRepository.saveAll(options.options)
+    override fun save(product: Product): Product{
+        return productJpaRepository.save(product)
+            .also {
+                val options = product.availableOptions
+                options.setProduct(it)
+                optionJpaRepository.saveAll(options.options)
+            }
     }
 
-    override fun save(option: Option) {
-        optionJpaRepository.save<Option>(option)
+    override fun save(option: Option): Option {
+        return optionJpaRepository.save<Option>(option)
     }
 
     override fun findAll(): List<Product> {
-        var products = productJpaRepository.findAll()
-
-        var productIds = products.map { it.id }.toSet()
-
-        var options = optionJpaRepository.findByProductIdIn(productIds)
-
-        return ProductMapper.optionsMappingToProduct(options, products)
+        return productJpaRepository.findAll()
+            .let { products ->
+                val productIds = products.map { it.id }.toSet()
+                val options = optionJpaRepository.findByProductIdIn(productIds)
+                ProductMapper.optionsMappingToProduct(products, options)
+            }
     }
 
     override fun findById(productId: Long): Product {
@@ -42,8 +40,7 @@ class ProductRepositoryImpl(
             .apply { addOptions(optionJpaRepository.findByProductId(productId)) }
     }
 
-    override fun findOptionById(optionId: Long): Option {
-        return optionJpaRepository.findById(optionId)
-            .orElseThrow { NoResultException("조회 결과가 존재하지않습니다.") }
+    override fun findOptionById(optionId: Long): Option? {
+        return optionJpaRepository.findById(optionId).orElse(null)
     }
 }

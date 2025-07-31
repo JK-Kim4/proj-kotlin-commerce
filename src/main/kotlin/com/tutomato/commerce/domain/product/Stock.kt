@@ -22,7 +22,7 @@ class Stock(
     }
 
     fun hasEnoughStock(stock: Int): Boolean {
-        return this.stock > stock
+        return this.stock >= stock
     }
 
     override fun equals(other: Any?): Boolean {
