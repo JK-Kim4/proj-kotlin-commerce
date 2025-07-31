@@ -10,7 +10,7 @@ import java.time.LocalDate
 
 @SpringBootTest
 @Testcontainers
-class ProductServiceTest(
+class ProductServiceIntegrationTest(
     @Autowired val productService: ProductService,
     @Autowired val productRepository: ProductRepository,
 ) {

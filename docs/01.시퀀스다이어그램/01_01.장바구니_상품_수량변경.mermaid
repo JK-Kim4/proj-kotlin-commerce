@@ -1,0 +1,15 @@
+sequenceDiagram
+    actor client
+    participant cart
+    participant cart item
+    participant persistence
+    client ->> cart: 장바구니 상품 수량 변경 요청
+    activate cart
+    cart ->> cart item:  수량 변경
+    activate cart item
+    cart item -->> cart: 응답
+    deactivate cart item
+    cart ->> persistence: 변경 내용 반영
+    persistence -->> cart: 응답
+    cart -->> client:  응답
+    deactivate cart
