@@ -1,5 +1,7 @@
 package com.tutomato.commerce.domain.product
 
+import com.tutomato.commerce.common.model.Money
+import java.math.BigDecimal
 import java.time.LocalDate
 
 data class ProductSave(
@@ -7,7 +9,8 @@ data class ProductSave(
     val description: String,
     val publishedDate: LocalDate,
     val category: String,
-    val options: List<OptionCommand>
+    val options: List<OptionCommand>,
+    val price: BigDecimal,
 ) {
     fun toEntity() : Product {
         val options = this.options
@@ -20,10 +23,28 @@ data class ProductSave(
                 description = this.description,
                 publishedDate = this.publishedDate,),
             category = Category.valueOf(this.category),
-            availableOptions = Options(options)
+            availableOptions = Options(options),
+            price = Money(this.price),
         )
     }
 }
+
+data class ProductOptionSave(
+    val productId: Long,
+    val colorCode: String,
+    val size: String,
+    val stock: Int,
+) {
+    fun toEntity(product: Product) : Option {
+        return Option(
+            product = product,
+            color = Color(colorCode),
+            size = Size.valueOf(size),
+            stock = Stock(stock)
+        )
+    }
+}
+
 
 data class DecreaseStock(
     val productId: Long,

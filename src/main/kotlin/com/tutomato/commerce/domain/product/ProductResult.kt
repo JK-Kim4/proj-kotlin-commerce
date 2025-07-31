@@ -1,11 +1,12 @@
 package com.tutomato.commerce.domain.product
 
+import java.math.BigDecimal
 import java.time.LocalDate
 
 class ProductResult {
 
     class Products (
-        products : List<Product>
+        val products : List<Product>
     ) {
         companion object {
             fun from(products: List<com.tutomato.commerce.domain.product.Product>) : Products {
@@ -27,6 +28,7 @@ class ProductResult {
         val publishedDate: LocalDate,
         val category: String,
         val saleStatus: String,
+        val price: BigDecimal,
         val options: List<OptionResult>,
     ) {
         companion object {
@@ -37,12 +39,13 @@ class ProductResult {
                     .toList()
 
                 return ProductResult.Product(
-                    id = product.id!!,
+                    id = product.id,
                     name = product.info.name,
                     description = product.info.description,
                     publishedDate = product.info.publishedDate,
                     category = product.category.name,
                     saleStatus = product.saleStatus!!.name,
+                    price = product.price.value,
                     options = options,
                 )
             }

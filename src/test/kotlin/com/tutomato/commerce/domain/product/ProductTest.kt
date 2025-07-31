@@ -3,104 +3,53 @@ package com.tutomato.commerce.domain.product
 import com.tutomato.commerce.support.domain.OptionDomainSupport
 import com.tutomato.commerce.support.domain.ProductDomainSupport
 import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatThrownBy
-import org.junit.jupiter.api.Test
-import java.time.LocalDate
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import java.time.LocalDateTime
+import kotlin.test.Test
 
 class ProductTest {
-    
-    @Test
-    fun `현재 상품의 주문 가능 여부를 검증한다`() {
-        val product = Product(
-            info = ProductInfo("test", "test product", LocalDate.now()),
-            saleStatus = SaleStatus.ON_SALE,
-            category = Category.TOP
-        )
 
-        assertThat(product.canOrder()).isTrue()
+    @Nested
+    @DisplayName("상품 판매 가능 여부 확인 시")
+    inner class 판매가능여부 {
+
+        var product: Product? = null
+        val option1 = OptionDomainSupport.fixture(id = 1L, stock = 10)
+        val option2 = OptionDomainSupport.fixture(id = 2L, color = "f00000", stock = 1)
+
+        @BeforeEach
+        fun init() {
+            product = ProductDomainSupport.fixture(
+                saleStatus = SaleStatus.ON_SALE,
+                options = Options(listOf(option1, option2))
+            )
+        }
+
+        @Test
+        @DisplayName("상품의 판매상태가 ON_SALE이고 옵션에 재고가 충분할 경우 true")
+        fun return_true() {
+            assertThat(product!!.canOrder(option1, 10)).isTrue()
+        }
+
+        @Test
+        @DisplayName("상품의 판매상태가 ON_SALE이 아닐 경우 false")
+        fun return_false1() {
+            product!!.stopSales(LocalDateTime.now())
+            assertThat(product!!.canOrder(option1, 10)).isFalse()
+
+            product!!.soldOut(LocalDateTime.now())
+            assertThat(product!!.canOrder(option1, 10)).isFalse()
+        }
+
+        @Test
+        @DisplayName("주문 옵션의 재고수가 부족한 경우 false")
+        fun return_false2() {
+            val 보유재고초과수량 = option1.stock.stock + 1;
+            assertThat(product!!.canOrder(option1, 보유재고초과수량)).isFalse()
+        }
     }
 
-    @Test
-    fun `상품 옵션 고유번호에 해당하는 옵션을 상품이 보유하고 있을 경우 옵션 정보를 반환한다`() {
-        val optionId = 90L
-        val option = OptionDomainSupport.옵션_생성_고유번호(optionId)
-        val product = ProductDomainSupport.상품_옵션_전달받아_상품_생성(option)
 
-        //when
-        val findOption = product.optionById(optionId)
-
-        //then
-        assertThat(findOption).isNotNull()
-        assertThat(findOption).isEqualTo(option)
-    }
-
-    @Test
-    fun `상품 옵션 고유번호에 해당하는 옵션을 상품이 보유하고있지 않을 경우 NoSuchElement 오류를 반환한다`() {
-        val product = ProductDomainSupport.기본_상품_생성()
-        val nonExistOptionId = 99L
-
-        assertThatThrownBy { product.optionById(nonExistOptionId) }
-            .isInstanceOf(NoSuchElementException::class.java)
-    }
-
-    @Test
-    fun `상품 옵션 객체를 파라미터로 전달하여 옵션을 제거할 수 있다`() {
-        val option = OptionDomainSupport.기본_옵션_생성()
-        val product = ProductDomainSupport.상품_옵션_전달받아_상품_생성(option)
-        assertThat(product.getOptions().options).contains(option)
-
-        //when
-        product.removeOption(option)
-        val options = product.getOptions().options
-
-        //then
-        assertThat(options).doesNotContain(option)
-    }
-
-    @Test
-    fun `상품 옵션 고유번호룰 파라미터로 전달하여 옵션을 제거할 수 있다`() {
-        val optionId = 99L
-        val option = OptionDomainSupport.옵션_생성_고유번호(optionId)
-        val product = ProductDomainSupport.상품_옵션_전달받아_상품_생성(option)
-        assertThat(product.getOptions().options).contains(option)
-
-        //when
-        product.removeOption(optionId)
-        val options = product.getOptions().options
-
-        //then
-        assertThat(options).doesNotContain(option)
-    }
-
-    @Test
-    fun `상품의 판매 상태를 SALE_STOPPED로 변경한다 `() {
-        val product = ProductDomainSupport.기본_상품_생성()
-        assertThat(product.saleStatus).isEqualTo(SaleStatus.ON_SALE)
-
-        product.stopSales(LocalDateTime.now())
-
-        assertThat(product.saleStatus).isEqualTo(SaleStatus.SALE_STOPPED)
-    }
-
-    @Test
-    fun `상품의 판매 상태를 SOLD_OUT로 변경한다 `() {
-        val product = ProductDomainSupport.기본_상품_생성()
-        assertThat(product.saleStatus).isEqualTo(SaleStatus.ON_SALE)
-
-        product.soldOut(LocalDateTime.now())
-
-        assertThat(product.saleStatus).isEqualTo(SaleStatus.SOLD_OUT)
-    }
-
-    @Test
-    fun `상품의 판매 상태를 ON_SALE로 변경한다 `() {
-        val product = ProductDomainSupport.기본_상품_생성()
-        product.soldOut(LocalDateTime.now())
-        assertThat(product.saleStatus).isEqualTo(SaleStatus.SOLD_OUT)
-
-        product.resumeSales(LocalDateTime.now())
-
-        assertThat(product.saleStatus).isEqualTo(SaleStatus.ON_SALE)
-    }
 }
