@@ -11,16 +11,16 @@ class CartCommand {
     }
 
     class SaveCartItem(
-        val cartId: Long,
+        val userId: Long,
         val productId: Long,
         val optionId: Long,
-        val amount: Int,
+        val quantity: Int,
     ) {
         fun toEntity(cart: Cart) : CartItem {
             return CartItem(
                 productId = productId,
                 optionId = optionId,
-                amount = amount,
+                quantity = quantity,
                 cart = cart
             )
         }

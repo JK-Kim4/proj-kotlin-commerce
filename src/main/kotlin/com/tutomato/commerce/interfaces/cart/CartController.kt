@@ -1,5 +1,7 @@
 package com.tutomato.commerce.interfaces.cart
 
+import com.tutomato.commerce.domain.authentication.Authenticated
+import com.tutomato.commerce.domain.authentication.AuthenticatedUser
 import com.tutomato.commerce.domain.cart.CartService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -12,38 +14,29 @@ class CartController(
 
     @GetMapping("/me")
     override fun cart(
-        @RequestHeader("Authorization") authorization: Token
-    ): ResponseEntity<CartResponse> {
-        return ResponseEntity.ok(CartResponse(
-            1L,
-            listOf(
-                CartItemResponse(1L, 1),
-                CartItemResponse(2L, 4),
-                CartItemResponse(3L, 5),
-            ),
-        ))
+        @Authenticated authorization: AuthenticatedUser): ResponseEntity<CartResponse> {
+        return ResponseEntity.ok(
+            CartResponse.from(cartService.findByUserId(authorization.userId))
+        )
     }
 
-    @PostMapping("/items")
+    @PostMapping("/item")
     override fun addItem(
-        @RequestHeader("Authorization") authorization: Token,
-        @RequestBody items: CartItemsRequest
+        @Authenticated authorization: AuthenticatedUser,
+        @RequestBody item: CartItemRequest
     ): ResponseEntity<CartResponse> {
-        return ResponseEntity.ok(CartResponse(
-            1L,
-            items.items.stream()
-                .map { item
-                    -> CartItemResponse(item.productId, item.quantity) }
-                .toList()
-        ))
+        return ResponseEntity.ok(
+            CartResponse.from(cartService.save(item.toCommand(authorization.userId)))
+        )
     }
 
     @PutMapping("/items/{id}")
     override fun updateQuantity(
-        @RequestHeader("Authorization") authorization: Token,
+        @Authenticated authorization: AuthenticatedUser,
         @PathVariable(name = "id") id: Long,
-        @RequestBody items: CartItemUpdateRequest
-    ): ResponseEntity<CartItemUpdateResponse> {
-        TODO("Not yet implemented")
+        @RequestBody item: CartItemUpdateRequest
+    ): ResponseEntity<Void> {
+        cartService.updateItemAmount(item.toCommand(id))
+        return ResponseEntity.ok().build()
     }
 }

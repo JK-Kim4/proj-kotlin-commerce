@@ -31,11 +31,11 @@ class CartServiceTest {
                 it.cartItems = CartItems(listOf(CartItem(
                     productId = 테스트상품고유번호,
                     optionId = 테스트상품옵션고유번호,
-                    amount = 100,
+                    quantity = 100,
                     cart = it)))
             }
-        val command = CartCommand.SaveCartItem(5, 테스트상품고유번호, 테스트상품옵션고유번호, 10)
-        every { cartRepository.findById(5) } returns 테스트장바구니
+        val command = CartCommand.SaveCartItem(10L, 테스트상품고유번호, 테스트상품옵션고유번호, 10)
+        every { cartRepository.findByUserId(10) } returns 테스트장바구니
 
         //when
         assertThrows<InstanceAlreadyExistsException> { cartService.save(command) }
@@ -46,10 +46,20 @@ class CartServiceTest {
         //given
         val 테스트상품고유번호 = 1L
         val 테스트상품옵션고유번호 = 1L
-        val 테스트장바구니 = Cart(id = 5,userId = 10)
-        val command = CartCommand.SaveCartItem(5, 테스트상품고유번호, 테스트상품옵션고유번호, 10)
-        every { cartRepository.findById(5) } returns 테스트장바구니
-        every { cartRepository.save(any<CartItem>()) } returns any<CartItem>()
+        val 테스트장바구니 = Cart(id = 5,userId = 10, cartItems = CartItems())
+        val 테스트장바구니상품 = CartItem(
+            productId = 테스트상품고유번호,
+            optionId = 테스트상품옵션고유번호,
+            quantity = 10,
+            cart = 테스트장바구니)
+        val command = CartCommand.SaveCartItem(10L, 테스트상품고유번호, 테스트상품옵션고유번호, 10)
+        every { cartRepository.findByUserId(10) } returns 테스트장바구니
+        every { cartRepository.save(any<CartItem>()) } returns CartItem(
+            id = 1L,
+            productId = 테스트상품고유번호,
+            optionId = 테스트상품옵션고유번호,
+            quantity = 10,
+            cart = 테스트장바구니)
 
         //when
         cartService.save(command)
@@ -64,7 +74,7 @@ class CartServiceTest {
         val 테스트상품고유번호 = 1L
         val 테스트상품옵션고유번호 = 1L
         val 테스트장바구니 = Cart(id = 5,userId = 10)
-        val 장바구니상품 = CartItem(id = 100, productId = 테스트상품고유번호, optionId = 테스트상품옵션고유번호, amount = 10, cart = 테스트장바구니)
+        val 장바구니상품 = CartItem(id = 100, productId = 테스트상품고유번호, optionId = 테스트상품옵션고유번호, quantity = 10, cart = 테스트장바구니)
         val command = CartCommand.UpdateItemAmount(cartItemId = 100, updateAmount = 3)
         every { cartRepository.findItemById(100) } returns 장바구니상품
         every { cartRepository.save(any<CartItem>()) } returns any<CartItem>()
@@ -74,6 +84,6 @@ class CartServiceTest {
         cartService.updateItemAmount(command)
 
         //then
-        assertThat(장바구니상품.amount).isEqualTo(3)
+        assertThat(장바구니상품.quantity).isEqualTo(3)
     }
 }
