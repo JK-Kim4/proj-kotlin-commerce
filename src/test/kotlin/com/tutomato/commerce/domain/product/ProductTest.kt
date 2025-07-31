@@ -9,8 +9,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 class ProductTest {
-
-
+    
     @Test
     fun `현재 상품의 주문 가능 여부를 검증한다`() {
         val product = Product(
