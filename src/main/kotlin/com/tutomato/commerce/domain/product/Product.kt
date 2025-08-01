@@ -52,7 +52,7 @@ class Product (
             SaleStatus.ON_SALE -> resumeSales(updatedAt)
         }
     }
-
+    
     fun stopSales(processDate: LocalDateTime) {
         this.saleStatus = SaleStatus.SALE_STOPPED
         this.updatedAt = processDate
