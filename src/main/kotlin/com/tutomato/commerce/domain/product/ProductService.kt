@@ -3,7 +3,6 @@ package com.tutomato.commerce.domain.product
 import jakarta.persistence.NoResultException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.time.LocalDateTime
 
 @Service
 @Transactional
@@ -33,11 +32,7 @@ class ProductService(private val productRepository: ProductRepository) {
         val product = productRepository.findById(command.productId)
             ?: throw NoResultException("상품이 존재하지않습니다.")
 
-        when (SaleStatus.valueOf(command.updateStatus)) {
-            SaleStatus.SALE_STOPPED -> product.stopSales(LocalDateTime.now())
-            SaleStatus.SOLD_OUT -> product.soldOut(LocalDateTime.now())
-            SaleStatus.ON_SALE -> product.resumeSales(LocalDateTime.now())
-        }
+        product.updateStatus(SaleStatus.valueOf(command.updateStatus))
 
         productRepository.save(product)
     }

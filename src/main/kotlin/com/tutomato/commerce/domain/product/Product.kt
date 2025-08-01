@@ -45,6 +45,14 @@ class Product (
         availableOptions = Options(options)
     }
 
+    fun updateStatus(status: SaleStatus, updatedAt: LocalDateTime = LocalDateTime.now()) {
+        when (status) {
+            SaleStatus.SALE_STOPPED -> stopSales(updatedAt)
+            SaleStatus.SOLD_OUT -> soldOut(updatedAt)
+            SaleStatus.ON_SALE -> resumeSales(updatedAt)
+        }
+    }
+
     fun stopSales(processDate: LocalDateTime) {
         this.saleStatus = SaleStatus.SALE_STOPPED
         this.updatedAt = processDate
