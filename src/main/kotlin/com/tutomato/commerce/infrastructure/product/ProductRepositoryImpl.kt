@@ -37,7 +37,7 @@ class ProductRepositoryImpl(
     override fun findById(productId: Long): Product {
         return productJpaRepository.findById(productId)
             .orElseThrow { NoResultException("조회 결과가 존재하지않습니다.") }
-            .apply { addOptions(optionJpaRepository.findByProductId(productId)) }
+            .apply { initializeOptions(optionJpaRepository.findByProductId(productId)) }
     }
 
     override fun findOptionById(optionId: Long): Option? {

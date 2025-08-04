@@ -13,10 +13,10 @@ class Option (
     var product: Product? = null,
 
     @Embedded
-    val color: Color?,
+    val color: Color,
 
     @Enumerated(EnumType.STRING)
-    val size: Size?,
+    val size: Size,
 
     @Embedded
     var stock: Stock = Stock(0),
@@ -32,8 +32,7 @@ class Option (
     }
 
     fun matches(target: Option): Boolean {
-        return (target.color == null || target.color == this.color) &&
-                (target.size == null || target.size == this.size)
+        return (target.color == this.color) && (target.size == this.size)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -44,8 +43,8 @@ class Option (
     }
 
     override fun hashCode(): Int {
-        var result = color?.hashCode() ?: 0
-        result = 31 * result + (size?.hashCode() ?: 0)
+        var result = color.hashCode()
+        result = 31 * result + (size.hashCode())
         return result
     }
 

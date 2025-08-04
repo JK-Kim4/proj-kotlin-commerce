@@ -41,8 +41,12 @@ class Product (
                 availableOptions.findOption(option)?.hasEnoughStock(quantity) == true
     }
 
-    fun addOptions(options: List<Option>) {
+    fun initializeOptions(options: List<Option>) {
         availableOptions = Options(options)
+    }
+
+    fun alreadyExistOption(colorCode: String, size: String): Boolean {
+        return availableOptions.findOptionByColorAndSize(colorCode, size) != null
     }
 
     fun updateStatus(status: SaleStatus, updatedAt: LocalDateTime = LocalDateTime.now()) {

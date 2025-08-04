@@ -11,45 +11,78 @@ import kotlin.test.Test
 
 class ProductTest {
 
+
+    private val 상품옵션1_재고10개 = OptionDomainSupport.fixture(id = 1L, stock = 10)
+    private val 상품옵션2_재고1개 = OptionDomainSupport.fixture(id = 2L, color = "f00000", stock = 1)
+    private lateinit var product: Product
+
+
     @Nested
-    @DisplayName("상품 판매 가능 여부 확인 시")
-    inner class 판매가능여부 {
+    @DisplayName("상품 판매 가능 여부 확인")
+    inner class ProductCanOrderTest {
 
-        var product: Product? = null
-        val option1 = OptionDomainSupport.fixture(id = 1L, stock = 10)
-        val option2 = OptionDomainSupport.fixture(id = 2L, color = "f00000", stock = 1)
-
-        @BeforeEach
-        fun init() {
-            product = ProductDomainSupport.fixture(
-                saleStatus = SaleStatus.ON_SALE,
-                options = Options(listOf(option1, option2))
-            )
+        @Test
+        fun `상품의 판매상태가 ON_SALE이고 재고가 충분할 경우 true`() {
+            assertThat(product.canOrder(상품옵션1_재고10개, 10)).isTrue()
         }
 
         @Test
-        @DisplayName("상품의 판매상태가 ON_SALE이고 옵션에 재고가 충분할 경우 true")
-        fun return_true() {
-            assertThat(product!!.canOrder(option1, 10)).isTrue()
+        fun `상품의 판매상태가 ON_SALE이 아닐 경우 false`() {
+            product.stopSales(LocalDateTime.now())
+            assertThat(product.canOrder(상품옵션1_재고10개, 10)).isFalse()
+
+            product.soldOut(LocalDateTime.now())
+            assertThat(product.canOrder(상품옵션1_재고10개, 10)).isFalse()
         }
 
         @Test
-        @DisplayName("상품의 판매상태가 ON_SALE이 아닐 경우 false")
-        fun return_false1() {
-            product!!.stopSales(LocalDateTime.now())
-            assertThat(product!!.canOrder(option1, 10)).isFalse()
+        fun `주문 옵션의 재고가 부족한 경우 false`() {
+            assertThat(product.canOrder(상품옵션2_재고1개, 2)).isFalse()
+        }
+    }
 
-            product!!.soldOut(LocalDateTime.now())
-            assertThat(product!!.canOrder(option1, 10)).isFalse()
+    @Test
+    fun `상품 옵션 목록을 초기화한다`() {
+        //given
+        val product = ProductDomainSupport.fixture()
+        val optionList = listOf(
+            OptionDomainSupport.fixture(1L, color = "testcolor1", stock = 1),
+            OptionDomainSupport.fixture(2L, color = "testcolor2", stock = 2),
+            OptionDomainSupport.fixture(3L, color = "testcolor3", stock = 3),
+        )
+
+        //when
+        product.initializeOptions(optionList)
+
+        //then
+        assertThat(product.availableOptions.options).isEqualTo(optionList)
+    }
+
+    @Nested
+    @DisplayName("상품 옵션 등록 여부")
+    inner class ExistOptions {
+
+        @Test
+        fun `동일한 Color와 Size의 옵션이 존재할 경우 true`() {
+            assertThat(product.alreadyExistOption(상품옵션1_재고10개.color.code, 상품옵션1_재고10개.size.name)).isTrue()
         }
 
         @Test
-        @DisplayName("주문 옵션의 재고수가 부족한 경우 false")
-        fun return_false2() {
-            val 보유재고초과수량 = option1.stock.stock + 1;
-            assertThat(product!!.canOrder(option1, 보유재고초과수량)).isFalse()
+        fun `동일한 Color와 Size의 옵션이 존재하지 않을 경우 false`() {
+            //given
+            val 미등록상품옵션 = OptionDomainSupport.fixture(color = "미등록상품Color", size = Size.XXL.name)
+
+            //when then
+            assertThat(product.alreadyExistOption(미등록상품옵션.color.code, 미등록상품옵션.size.name)).isFalse()
         }
     }
 
 
+    @BeforeEach
+    fun init() {
+        product = ProductDomainSupport.fixture(
+            saleStatus = SaleStatus.ON_SALE,
+            options = Options(listOf(상품옵션1_재고10개, 상품옵션2_재고1개))
+        )
+    }
 }

@@ -9,7 +9,7 @@ class ProductMapper {
         fun optionsMappingToProduct(products: List<Product>, options : List<Option>): List<Product> {
             return products.map { prod ->
                 prod.apply {
-                    addOptions(options.filter { it.product == prod })
+                    initializeOptions(options.filter { it.product == prod })
                 }
             }.toList()
         }

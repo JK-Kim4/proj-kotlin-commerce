@@ -13,4 +13,17 @@ class CartItems(
         val newList = items + cartItem
         return CartItems(newList)
     }
+
+    fun remove(cartItem: CartItem) : CartItems {
+        val newList = items - cartItem
+        return CartItems(newList)
+    }
+
+    fun exist(cartItem: CartItem) : Boolean {
+        return items.any { it.productId == cartItem.productId && it.optionId == cartItem.optionId }
+    }
+
+    fun exist(cartItemId: Long) : Boolean {
+        return items.any { it.id == cartItemId }
+    }
 }

@@ -18,7 +18,6 @@ object OptionDomainSupport {
             size = Size.valueOf(size),
             stock = Stock(stock),
         )
-
     }
 
 }

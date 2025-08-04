@@ -6,6 +6,7 @@ import java.math.BigDecimal
 import java.time.LocalDate
 
 object ProductDomainSupport {
+
     fun fixture(
         id: Long = 0L,
         name: String = "테스트 상품",
@@ -30,6 +31,5 @@ object ProductDomainSupport {
         }
 
         return product
-
     }
 }
