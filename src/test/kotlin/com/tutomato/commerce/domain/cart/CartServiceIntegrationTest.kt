@@ -45,9 +45,5 @@ class CartServiceIntegrationTest(
             //when then
             assertThrows<NoResultException> { cartService.findByUserId(없는사용자고유번호) }
         }
-
     }
-
-
-
 }
