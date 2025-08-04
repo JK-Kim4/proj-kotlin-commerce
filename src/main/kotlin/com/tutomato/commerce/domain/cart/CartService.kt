@@ -3,7 +3,6 @@ package com.tutomato.commerce.domain.cart
 import jakarta.persistence.NoResultException
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
-import javax.management.InstanceAlreadyExistsException
 
 @Service
 @Transactional
@@ -18,14 +17,12 @@ class CartService (
     fun save(command: CartCommand.SaveCartItem) : Cart {
         val cart = cartRepository.findByUserId(command.userId)
             ?: throw NoResultException("고유번호에 해당하는 장바구니가 존재하지않습니다.")
+        val cartItem = command.toEntity(cart)
 
-        cart.getItemByIds(command.productId, command.optionId)
-            ?.let { throw InstanceAlreadyExistsException("이미 등록된 상품입니다.") }
-
-        val cartItem = cartRepository.save(command.toEntity(cart))
         cart.addItem(cartItem)
+        cartRepository.save(cartItem)
 
-        return cart;
+        return cart
     }
 
     fun findByUserId(userId: Long) : Cart {

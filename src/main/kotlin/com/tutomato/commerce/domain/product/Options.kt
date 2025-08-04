@@ -18,5 +18,7 @@ class Options(
         return options.find { it.id == option.id }
     }
 
-
+    fun findOptionByColorAndSize(colorCode: String, size: String) : Option? {
+        return options.find { it.color == Color(colorCode) && it.size == Size.valueOf(size) }
+    }
 }

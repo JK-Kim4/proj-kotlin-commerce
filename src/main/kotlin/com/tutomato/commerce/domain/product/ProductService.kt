@@ -3,6 +3,7 @@ package com.tutomato.commerce.domain.product
 import jakarta.persistence.NoResultException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import javax.management.InstanceAlreadyExistsException
 
 @Service
 @Transactional
@@ -15,6 +16,10 @@ class ProductService(private val productRepository: ProductRepository) {
     fun save(command: ProductOptionSave): Option {
         val product = productRepository.findById(command.productId)
             ?: throw NoResultException("상품이 존재하지않습니다.")
+
+        if (product.alreadyExistOption(command.colorCode, command.size)) {
+            throw InstanceAlreadyExistsException("이미 등록된 옵션입니다.")
+        }
 
         return productRepository.save(command.toEntity(product))
     }
@@ -44,7 +49,6 @@ class ProductService(private val productRepository: ProductRepository) {
 
         return ProductResult.Product.from(product)
     }
-
 
     @Transactional(readOnly = true)
     fun findAll(): ProductResult.Products {
