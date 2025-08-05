@@ -1,14 +1,21 @@
 package com.tutomato.commerce.domain.cart
 
 import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import javax.management.InstanceAlreadyExistsException
 
 @Entity
 class Cart(
-    @Id var id: Long = 0,
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long = 0,
+
     val userId: Long,
+
     @Transient var cartItems: CartItems = CartItems(),
+
 ) {
     fun getItemByIds(productId : Long, optionId : Long) : CartItem? {
         return cartItems.getItemByIds(productId, optionId)
