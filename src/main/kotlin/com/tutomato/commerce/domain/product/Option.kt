@@ -9,7 +9,11 @@ class Option (
     var id: Long = 0,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(
+        name = "product_id",
+        nullable = false,
+        foreignKey = ForeignKey(value = ConstraintMode.NO_CONSTRAINT)
+    )
     var product: Product? = null,
 
     @Embedded

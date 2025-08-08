@@ -5,6 +5,10 @@ interface ProductRepository {
 
     fun save(product: Product): Product
 
+    fun saveAll(products: List<Product>)
+
+    fun flush()
+
     fun save(option: Option) : Option
 
     fun findById(productId : Long) : Product?

@@ -8,7 +8,7 @@ class ProductInfo(
 
     val name: String,
     val description: String,
-    val publishedDate: LocalDate,
+    val publishedDate: LocalDate = LocalDate.now(),
     //val seller: Seller,
 
     ) {

@@ -21,6 +21,14 @@ class ProductRepositoryImpl(
             }
     }
 
+    override fun saveAll(products: List<Product>) {
+        products.forEach { product -> save(product) }
+    }
+
+    override fun flush() {
+        productJpaRepository.flush()
+    }
+
     override fun save(option: Option): Option {
         return optionJpaRepository.save<Option>(option)
     }
