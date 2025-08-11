@@ -14,10 +14,10 @@ object OrderDomainSupport {
         orderStatus: OrderStatus = OrderStatus.CREATED,
         orderLines: List<OrderLine> = defaultOrderLines,
     ): Order {
-        return Order(
-            id = id,
-            orderStatus = orderStatus,
-            _orderLines = orderLines,
+        return Order.create(
+            userId = 10L,
+            status = orderStatus,
+            lines = orderLines,
         )
     }
 

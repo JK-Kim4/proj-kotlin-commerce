@@ -14,6 +14,15 @@ class OrderServiceTest {
     private lateinit var orderRepository: OrderRepository
 
     @Test
+    fun `사용자 주문이 존재하지 않을 경우 return false`() {
+        val userId = 1L
+        every { orderRepository.findByUserId(userId) }.returns(listOf())
+
+        //when
+        assertThat(orderService.existsUnpaidOrderByUserId(userId)).isFalse()
+    }
+
+    @Test
     fun `사용자 주문 목록 중 미결제 주문이 존재할 경우 return true`() {
         //given
         val userId = 1L

@@ -6,7 +6,6 @@ import jakarta.persistence.Embeddable
 class Stock(
 
     val stock: Int
-
 ) {
 
     fun decrease(amount : Int) : Stock{

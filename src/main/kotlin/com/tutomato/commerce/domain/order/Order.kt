@@ -7,11 +7,14 @@ import java.time.LocalDateTime
 
 
 @Entity
-class Order(
+@Table(name = "orders")
+class Order protected constructor(
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     var id: Long = 0,
+
+    val userId: Long,
 
     @Enumerated(EnumType.STRING)
     val orderStatus: OrderStatus = OrderStatus.CREATED,
@@ -19,13 +22,23 @@ class Order(
     @OneToMany(mappedBy = "order", cascade = [CascadeType.ALL], orphanRemoval = true)
     @JoinColumn(name = "order_id")
     private val _orderLines: List<OrderLine> = listOf(),
-) {
 
     @Embedded
-    var orderAmounts: OrderAmounts? = null
+    var orderAmounts: OrderAmounts = OrderAmounts.zero(),
+) {
+
+    // JPA용 무인자 생성자 (필수). 외부 사용 금지.
+    @Deprecated("JPA only", level = DeprecationLevel.ERROR)
+    protected constructor() : this(
+        id = 0L,
+        userId = 0L,
+        orderStatus = OrderStatus.CREATED,
+        _orderLines = mutableListOf(),
+        orderAmounts = OrderAmounts.zero()
+    )
 
     @Transient
-    val orderLines: OrderLines = OrderLines(_orderLines)
+    var orderLines: OrderLines = OrderLines(listOf())
 
     @CreatedDate
     @Column(updatable = false)
@@ -33,5 +46,31 @@ class Order(
 
     @LastModifiedDate
     var updatedAt: LocalDateTime? = LocalDateTime.now()
+
+    fun calculate() {
+        orderAmounts = OrderAmounts(orderLines.calculateSubTotal())
+    }
+
+    companion object {
+        // 정적 팩토리: 생성 시 라인 세팅 후 한번에 계산
+        fun create(
+            id: Long = 0,
+            userId: Long,
+            lines: List<OrderLine>,
+            status: OrderStatus = OrderStatus.CREATED,
+        ): Order {
+            val order = Order(
+                id = id,
+                userId = userId,
+                orderStatus = status,
+                _orderLines = lines,
+            )
+
+            order.orderLines = OrderLines(lines)
+            order.calculate()
+
+            return order
+        }
+    }
 
 }

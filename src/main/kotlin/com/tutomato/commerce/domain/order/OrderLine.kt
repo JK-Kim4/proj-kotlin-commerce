@@ -8,7 +8,6 @@ class OrderLine(
     @Embedded
     val snapshot: ProductSnapshot,
 ) {
-
     init {
         calculatePrice()
     }
