@@ -24,6 +24,10 @@ class Stock(
         return this.stock >= stock
     }
 
+    operator fun plus(other: Stock): Stock = Stock(stock + other.stock)
+
+    operator fun minus(other: Stock): Stock = Stock(stock - other.stock)
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

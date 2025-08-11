@@ -6,7 +6,7 @@ import com.tutomato.commerce.domain.order.OrderLine
 import com.tutomato.commerce.domain.order.ProductSnapshot
 import java.math.BigDecimal
 
-data class OrderSave(
+data class OrderSaveCommand(
     val userId: Long,
     val snapshots: List<OrderProductSnapshot>,
 ) {

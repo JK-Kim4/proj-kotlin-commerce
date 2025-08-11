@@ -33,6 +33,12 @@ class ProductService(private val productRepository: ProductRepository) {
         productRepository.save(option)
     }
 
+    fun decreaseStock(option: Option, decreaseAmount: Int) {
+        option.decreaseStock(decreaseAmount)
+
+        productRepository.save(option)
+    }
+
     fun updateStatus(command : UpdateStatus) {
         val product = productRepository.findById(command.productId)
             ?: throw NoResultException("상품이 존재하지않습니다.")
@@ -40,6 +46,13 @@ class ProductService(private val productRepository: ProductRepository) {
         product.updateStatus(SaleStatus.valueOf(command.updateStatus))
 
         productRepository.save(product)
+    }
+
+    fun findOptionByOptionIdWithPessimisticLock(optionId: Long): Option? {
+        val option = productRepository.findOptionByOptionIdWithPessimisticLock(optionId)
+            ?: throw NoResultException("상품이 존재하지않습니다.")
+
+        return option
     }
 
     @Transactional(readOnly = true)

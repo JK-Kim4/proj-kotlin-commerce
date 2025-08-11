@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository
 @Repository
 class ProductRepositoryImpl(
     private val productJpaRepository: ProductJpaRepository,
-    private val optionJpaRepository: OptionJpaRepository
+    private val optionJpaRepository: OptionJpaRepository,
 ) : ProductRepository {
 
     override fun save(product: Product): Product{
@@ -42,5 +42,9 @@ class ProductRepositoryImpl(
 
     override fun findOptionById(optionId: Long): Option? {
         return optionJpaRepository.findById(optionId).orElse(null)
+    }
+
+    override fun findOptionByOptionIdWithPessimisticLock(optionId: Long): Option? {
+        return optionJpaRepository.findOptionByOptionIdWithPessimisticLock(optionId)
     }
 }

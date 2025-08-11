@@ -22,4 +22,8 @@ class OrderRepositoryImpl(
     override fun findByUserId(userId: Long): List<Order> {
         return orderJpaRepository.findByUserId(userId)
     }
+
+    override fun findById(orderId: Long): Order? {
+        return orderJpaRepository.findById(orderId).orElse(null)
+    }
 }

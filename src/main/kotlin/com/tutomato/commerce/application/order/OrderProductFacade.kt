@@ -1,24 +1,31 @@
 package com.tutomato.commerce.application.order
 
-import com.tutomato.commerce.domain.order.dto.OrderSave
-import com.tutomato.commerce.domain.order.dto.OrderSaveResult
 import com.tutomato.commerce.domain.order.OrderService
+import com.tutomato.commerce.domain.order.dto.OrderSaveCommand
+import com.tutomato.commerce.domain.order.dto.OrderSaveResult
 import com.tutomato.commerce.domain.product.ProductService
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 
 @Component
+@Transactional
 class OrderProductFacade(
     private val orderService: OrderService,
     private val productService: ProductService,
 ) {
 
-    fun create(command: OrderSave): OrderSaveResult {
+    fun create(command: OrderSaveCommand): OrderSaveResult {
         //사용자 미결제 주문 여부 확인
         if (orderService.existsUnpaidOrderByUserId(command.userId)) {
             throw IllegalArgumentException("미결제 주문이 존재합니다.")
         }
 
-        //TODO 상품 재고 선점 요청
+        //상품 재고 선점 요청
+        command.snapshots.forEach {
+            snapshot ->
+            productService.findOptionByOptionIdWithPessimisticLock(snapshot.optionId)
+                ?.decreaseStock(snapshot.quantity)
+        }
 
         //주문 생성
         val order = orderService.save(command)
@@ -26,6 +33,8 @@ class OrderProductFacade(
 
         //TODO 주문 이벤트 발행
 
+        //상태 변경
+        order.pending()
 
         return OrderSaveResult.from(order)
     }

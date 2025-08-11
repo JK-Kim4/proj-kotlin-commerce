@@ -17,7 +17,7 @@ class Order protected constructor(
     val userId: Long,
 
     @Enumerated(EnumType.STRING)
-    val orderStatus: OrderStatus = OrderStatus.CREATED,
+    var orderStatus: OrderStatus = OrderStatus.CREATED,
 
     @Embedded
     var orderAmounts: OrderAmounts = OrderAmounts.zero(),
@@ -44,6 +44,10 @@ class Order protected constructor(
 
     fun calculate() {
         orderAmounts = OrderAmounts(orderLines.calculateSubTotal())
+    }
+
+    fun pending() {
+        orderStatus = OrderStatus.PENDING
     }
 
     companion object {

@@ -1,7 +1,7 @@
 package com.tutomato.commerce.domain.order
 
 import com.tutomato.commerce.domain.order.dto.OrderProductSnapshot
-import com.tutomato.commerce.domain.order.dto.OrderSave
+import com.tutomato.commerce.domain.order.dto.OrderSaveCommand
 import com.tutomato.commerce.domain.user.User
 import com.tutomato.commerce.domain.user.UserRepository
 import org.assertj.core.api.Assertions.assertThat
@@ -31,7 +31,7 @@ class OrderServiceIntegrationTest(
     @Test
     fun `주문을 저장한다`() {
         //given
-        val command = OrderSave(
+        val command = OrderSaveCommand(
             userId = 사용자1.id,
             snapshots = listOf(
                 OrderProductSnapshot(
