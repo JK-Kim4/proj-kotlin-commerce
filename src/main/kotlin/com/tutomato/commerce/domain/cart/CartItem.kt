@@ -1,9 +1,6 @@
 package com.tutomato.commerce.domain.cart
 
-import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
-import jakarta.persistence.Id
-import jakarta.persistence.ManyToOne
+import jakarta.persistence.*
 
 @Entity
 class CartItem(
@@ -11,7 +8,12 @@ class CartItem(
     val productId: Long,
     val optionId: Long,
     var quantity: Int,
-    @ManyToOne(fetch = FetchType.LAZY) val cart : Cart,
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+        name = "cart_id",
+        foreignKey = ForeignKey(value = ConstraintMode.NO_CONSTRAINT)
+    )
+    val cart : Cart,
 ) {
 
     fun updateQuantity(quantity: Int) {

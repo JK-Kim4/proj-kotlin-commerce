@@ -1,6 +1,6 @@
 package com.tutomato.commerce.config.web
 
-import com.tutomato.commerce.domain.authentication.AuthenticationArgumentResolver
+import com.tutomato.commerce.domain.user.AuthenticationArgumentResolver
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer

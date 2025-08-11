@@ -1,4 +1,4 @@
-package com.tutomato.commerce.domain.authentication
+package com.tutomato.commerce.domain.user
 
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 

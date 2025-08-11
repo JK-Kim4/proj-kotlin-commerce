@@ -1,8 +1,8 @@
 package com.tutomato.commerce.infrastructure.authentication
 
-import com.tutomato.commerce.domain.authentication.Authenticated
-import com.tutomato.commerce.domain.authentication.AuthenticatedUser
-import com.tutomato.commerce.domain.authentication.AuthenticationArgumentResolver
+import com.tutomato.commerce.domain.user.Authenticated
+import com.tutomato.commerce.domain.user.AuthenticatedUser
+import com.tutomato.commerce.domain.user.AuthenticationArgumentResolver
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component
 import org.springframework.web.bind.support.WebDataBinderFactory
