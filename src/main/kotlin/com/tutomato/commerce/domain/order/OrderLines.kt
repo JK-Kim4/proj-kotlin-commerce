@@ -8,6 +8,10 @@ class OrderLines(
     val orderLines: List<OrderLine>
 ) {
 
+    fun setOrder(order: Order) {
+        orderLines.forEach { it.order = order }
+    }
+
     fun size(): Int {
         return orderLines.size
     }

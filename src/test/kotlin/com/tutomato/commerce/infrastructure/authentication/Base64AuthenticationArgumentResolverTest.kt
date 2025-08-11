@@ -2,6 +2,7 @@ package com.tutomato.commerce.infrastructure.authentication
 
 
 import com.tutomato.commerce.domain.user.AuthenticatedUser
+import com.tutomato.commerce.infrastructure.user.authentication.Base64AuthenticationArgumentResolver
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

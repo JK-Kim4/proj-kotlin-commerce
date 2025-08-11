@@ -1,5 +1,6 @@
-package com.tutomato.commerce.domain.order
+package com.tutomato.commerce.domain.order.dto
 
+import com.tutomato.commerce.domain.order.Order
 import java.math.BigDecimal
 
 data class OrderSaveResult(

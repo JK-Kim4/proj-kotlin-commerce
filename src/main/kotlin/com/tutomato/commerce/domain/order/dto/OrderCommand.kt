@@ -1,6 +1,9 @@
-package com.tutomato.commerce.domain.order
+package com.tutomato.commerce.domain.order.dto
 
 import com.tutomato.commerce.common.model.Money
+import com.tutomato.commerce.domain.order.Order
+import com.tutomato.commerce.domain.order.OrderLine
+import com.tutomato.commerce.domain.order.ProductSnapshot
 import java.math.BigDecimal
 
 data class OrderSave(

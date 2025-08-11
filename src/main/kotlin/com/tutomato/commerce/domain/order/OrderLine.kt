@@ -12,7 +12,8 @@ class OrderLine(
         calculatePrice()
     }
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_line_id")
     var id: Long = 0
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -22,6 +23,9 @@ class OrderLine(
     )
     lateinit var order: Order
 
+    @AttributeOverrides(
+        AttributeOverride(name = "value", column = Column(name = "price"))
+    )
     lateinit var price: Money
 
     fun calculatePrice() {

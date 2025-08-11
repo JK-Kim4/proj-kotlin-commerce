@@ -1,7 +1,7 @@
 package com.tutomato.commerce.application.order
 
-import com.tutomato.commerce.domain.order.OrderSave
-import com.tutomato.commerce.domain.order.OrderSaveResult
+import com.tutomato.commerce.domain.order.dto.OrderSave
+import com.tutomato.commerce.domain.order.dto.OrderSaveResult
 import com.tutomato.commerce.domain.order.OrderService
 import com.tutomato.commerce.domain.product.ProductService
 import org.springframework.stereotype.Component

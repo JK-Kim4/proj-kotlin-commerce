@@ -19,10 +19,6 @@ class Order protected constructor(
     @Enumerated(EnumType.STRING)
     val orderStatus: OrderStatus = OrderStatus.CREATED,
 
-    @OneToMany(mappedBy = "order", cascade = [CascadeType.ALL], orphanRemoval = true)
-    @JoinColumn(name = "order_id")
-    private val _orderLines: List<OrderLine> = listOf(),
-
     @Embedded
     var orderAmounts: OrderAmounts = OrderAmounts.zero(),
 ) {
@@ -33,8 +29,7 @@ class Order protected constructor(
         id = 0L,
         userId = 0L,
         orderStatus = OrderStatus.CREATED,
-        _orderLines = mutableListOf(),
-        orderAmounts = OrderAmounts.zero()
+        orderAmounts = OrderAmounts.zero(),
     )
 
     @Transient
@@ -63,7 +58,6 @@ class Order protected constructor(
                 id = id,
                 userId = userId,
                 orderStatus = status,
-                _orderLines = lines,
             )
 
             order.orderLines = OrderLines(lines)

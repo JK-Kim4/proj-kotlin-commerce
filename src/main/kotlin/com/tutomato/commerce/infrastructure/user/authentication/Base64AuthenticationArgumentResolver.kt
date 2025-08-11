@@ -1,4 +1,4 @@
-package com.tutomato.commerce.infrastructure.authentication
+package com.tutomato.commerce.infrastructure.user.authentication
 
 import com.tutomato.commerce.domain.user.Authenticated
 import com.tutomato.commerce.domain.user.AuthenticatedUser
