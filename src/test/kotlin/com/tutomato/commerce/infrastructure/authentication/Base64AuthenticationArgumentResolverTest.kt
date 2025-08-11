@@ -1,7 +1,7 @@
 package com.tutomato.commerce.infrastructure.authentication
 
 
-import com.tutomato.commerce.domain.authentication.AuthenticatedUser
+import com.tutomato.commerce.domain.user.AuthenticatedUser
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

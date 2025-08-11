@@ -1,4 +1,4 @@
-package com.tutomato.commerce.domain.authentication
+package com.tutomato.commerce.domain.user
 
 @Target(AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.RUNTIME)
