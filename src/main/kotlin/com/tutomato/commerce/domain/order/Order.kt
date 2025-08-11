@@ -9,23 +9,23 @@ import java.time.LocalDateTime
 @Entity
 class Order(
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id")
+    var id: Long = 0,
+
+    @Enumerated(EnumType.STRING)
+    val orderStatus: OrderStatus = OrderStatus.CREATED,
+
     @OneToMany(mappedBy = "order", cascade = [CascadeType.ALL], orphanRemoval = true)
     @JoinColumn(name = "order_id")
     private val _orderLines: List<OrderLine> = listOf(),
 ) {
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
-    var id: Long = 0
 
     @Embedded
     var orderAmounts: OrderAmounts? = null
 
     @Transient
     val orderLines: OrderLines = OrderLines(_orderLines)
-
-    @Enumerated(EnumType.STRING)
-    val orderStatus: OrderStatus = OrderStatus.CREATED
 
     @CreatedDate
     @Column(updatable = false)

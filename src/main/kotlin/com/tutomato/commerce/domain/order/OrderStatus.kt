@@ -5,5 +5,10 @@ enum class OrderStatus {
     PENDING,
     PAID,
     CANCELED,
-    EXPIRED
+    EXPIRED,
+
+}
+
+fun OrderStatus.isUnpaid(): Boolean {
+    return this == OrderStatus.CREATED || this == OrderStatus.PENDING
 }
