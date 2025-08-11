@@ -33,12 +33,6 @@ class ProductService(private val productRepository: ProductRepository) {
         productRepository.save(option)
     }
 
-    fun decreaseStock(option: Option, decreaseAmount: Int) {
-        option.decreaseStock(decreaseAmount)
-
-        productRepository.save(option)
-    }
-
     fun updateStatus(command : UpdateStatus) {
         val product = productRepository.findById(command.productId)
             ?: throw NoResultException("상품이 존재하지않습니다.")
@@ -53,6 +47,10 @@ class ProductService(private val productRepository: ProductRepository) {
             ?: throw NoResultException("상품이 존재하지않습니다.")
 
         return option
+    }
+
+    fun findOptionById(optionId: Long): Option? {
+        return productRepository.findOptionById(optionId)
     }
 
     @Transactional(readOnly = true)

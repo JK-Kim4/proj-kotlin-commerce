@@ -20,7 +20,7 @@ class OrderProductFacade(
             throw IllegalArgumentException("미결제 주문이 존재합니다.")
         }
 
-        //상품 재고 선점 요청
+        //상품 재고 선점 요청 -> 현재 정책상 상품의 재고는 음수로 내려갈 수 없어 주문 생성과 동일한 트랜잭션에서 재고 차감 진행
         command.snapshots.forEach {
             snapshot ->
             productService.findOptionByOptionIdWithPessimisticLock(snapshot.optionId)
@@ -29,7 +29,6 @@ class OrderProductFacade(
 
         //주문 생성
         val order = orderService.save(command)
-
 
         //TODO 주문 이벤트 발행
 

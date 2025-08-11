@@ -22,15 +22,14 @@ import org.testcontainers.junit.jupiter.Testcontainers
 
 @SpringBootTest
 @Testcontainers
-class OrderFacadeTest(
+class OrderProductFacadeTest(
     @Autowired val orderProductFacade: OrderProductFacade,
     @Autowired val orderRepository: OrderRepository,
     @Autowired val productRepository: ProductRepository,
     @Autowired val userRepository: UserRepository,
+    @Autowired val optionJpaRepository: OptionJpaRepository,
 ) {
 
-    @Autowired
-    private lateinit var optionJpaRepository: OptionJpaRepository
     lateinit var 구매자: User
     lateinit var 판매상픔: Product
     var 상품옵션 = OptionDomainSupport.fixture(stock = 10)
