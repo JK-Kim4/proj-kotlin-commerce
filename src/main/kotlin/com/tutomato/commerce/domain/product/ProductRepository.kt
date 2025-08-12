@@ -15,4 +15,6 @@ interface ProductRepository {
 
     fun findOptionByOptionIdWithPessimisticLock(optionId : Long) : Option?
 
+    fun findAllOptionsByIdInForUpdate(optionIds: Set<Long>): List<Option>
+
 }

@@ -1,5 +1,6 @@
 package com.tutomato.commerce.application.order
 
+import com.tutomato.commerce.domain.order.OrderCreatedEvent
 import com.tutomato.commerce.domain.order.OrderRepository
 import com.tutomato.commerce.domain.order.OrderStatus
 import com.tutomato.commerce.domain.order.dto.OrderProductSnapshot
@@ -22,7 +23,10 @@ import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.actuate.startup.StartupEndpoint
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.event.ApplicationEvents
+import org.springframework.test.context.event.RecordApplicationEvents
 import org.testcontainers.junit.jupiter.Testcontainers
+import java.math.BigDecimal
 
 @SpringBootTest
 @Testcontainers

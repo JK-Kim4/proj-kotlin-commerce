@@ -17,4 +17,8 @@ interface OptionJpaRepository : JpaRepository<Option, Long> {
     @Query("select o from Option o where o.id = :optionId")
     fun findOptionByOptionIdWithPessimisticLock(@Param("optionId") optionId: Long): Option?
 
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select o from Option o where o.id in :optionIds")
+    fun findAllOptionsByIdInForUpdate(@Param("optionIds") optionIds: Set<Long>): List<Option>
+
 }

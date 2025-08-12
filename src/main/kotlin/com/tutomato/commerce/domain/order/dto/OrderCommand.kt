@@ -16,6 +16,10 @@ data class OrderSaveCommand(
             lines = snapshots.map { it.toOrderLineEntity() }.toList()
         )
     }
+
+    fun getSnapshotOptionIds(): Set<Long> {
+        return snapshots.map { it.optionId }.toSet()
+    }
 }
 
 data class OrderProductSnapshot(

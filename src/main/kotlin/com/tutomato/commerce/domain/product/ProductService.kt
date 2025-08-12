@@ -42,7 +42,11 @@ class ProductService(private val productRepository: ProductRepository) {
         productRepository.save(product)
     }
 
-    fun findOptionByOptionIdWithPessimisticLock(optionId: Long): Option? {
+    fun findAllOptionsWithPessimisticLock(optionIds: Set<Long>): List<Option> {
+        return productRepository.findAllOptionsByIdInForUpdate(optionIds)
+    }
+
+    fun findOptionByOptionIdWithPessimisticLock(optionId: Long): Option {
         val option = productRepository.findOptionByOptionIdWithPessimisticLock(optionId)
             ?: throw NoResultException("상품이 존재하지않습니다.")
 

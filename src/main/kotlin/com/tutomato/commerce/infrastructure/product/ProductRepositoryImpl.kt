@@ -47,4 +47,8 @@ class ProductRepositoryImpl(
     override fun findOptionByOptionIdWithPessimisticLock(optionId: Long): Option? {
         return optionJpaRepository.findOptionByOptionIdWithPessimisticLock(optionId)
     }
+
+    override fun findAllOptionsByIdInForUpdate(optionIds: Set<Long>): List<Option> {
+        return optionJpaRepository.findAllOptionsByIdInForUpdate(optionIds)
+    }
 }
