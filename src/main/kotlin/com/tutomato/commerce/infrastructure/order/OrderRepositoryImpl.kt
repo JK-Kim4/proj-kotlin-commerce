@@ -26,4 +26,8 @@ class OrderRepositoryImpl(
     override fun findById(orderId: Long): Order? {
         return orderJpaRepository.findById(orderId).orElse(null)
     }
+
+    override fun deleteAll() {
+        orderJpaRepository.deleteAll()
+    }
 }

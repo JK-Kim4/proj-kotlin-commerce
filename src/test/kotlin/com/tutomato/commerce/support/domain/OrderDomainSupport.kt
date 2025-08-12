@@ -11,11 +11,12 @@ object OrderDomainSupport {
 
     fun fixture(
         id: Long = 0L,
+        userId: Long = 10L,
         orderStatus: OrderStatus = OrderStatus.CREATED,
         orderLines: List<OrderLine> = defaultOrderLines,
     ): Order {
         return Order.create(
-            userId = 10L,
+            userId = userId,
             status = orderStatus,
             lines = orderLines,
         )

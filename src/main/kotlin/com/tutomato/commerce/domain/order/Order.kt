@@ -37,10 +37,10 @@ class Order protected constructor(
 
     @CreatedDate
     @Column(updatable = false)
-    val createdAt: LocalDateTime? = LocalDateTime.now()
+    val createdAt: LocalDateTime = LocalDateTime.now()
 
     @LastModifiedDate
-    var updatedAt: LocalDateTime? = LocalDateTime.now()
+    var updatedAt: LocalDateTime = LocalDateTime.now()
 
     fun calculate() {
         orderAmounts = OrderAmounts(orderLines.calculateSubTotal())

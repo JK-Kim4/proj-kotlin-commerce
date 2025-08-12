@@ -5,7 +5,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
-import org.mockito.kotlin.any
+import org.mockito.ArgumentMatchers.any
 import javax.management.InstanceAlreadyExistsException
 
 class CartServiceTest {

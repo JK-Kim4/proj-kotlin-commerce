@@ -1,15 +1,18 @@
 package com.tutomato.commerce.application.order
 
+import com.tutomato.commerce.domain.order.OrderCreatedEvent
 import com.tutomato.commerce.domain.order.OrderService
 import com.tutomato.commerce.domain.order.dto.OrderSaveCommand
 import com.tutomato.commerce.domain.order.dto.OrderSaveResult
 import com.tutomato.commerce.domain.product.ProductService
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
 @Component
 @Transactional
 class OrderProductFacade(
+    private val publisher: ApplicationEventPublisher,
     private val orderService: OrderService,
     private val productService: ProductService,
 ) {
@@ -31,6 +34,7 @@ class OrderProductFacade(
         val order = orderService.save(command)
 
         //TODO 주문 이벤트 발행
+        publisher.publishEvent(OrderCreatedEvent.from(order))
 
         //상태 변경
         order.pending()

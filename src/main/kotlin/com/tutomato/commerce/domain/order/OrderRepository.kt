@@ -10,4 +10,6 @@ interface OrderRepository {
     fun findByUserId(userId: Long): List<Order>
 
     fun save(order: Order): Order
+
+    fun deleteAll()
 }
