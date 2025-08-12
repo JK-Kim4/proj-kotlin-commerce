@@ -1,0 +1,17 @@
+sequenceDiagram
+    actor client
+    participant cart
+    participant persistence
+    client ->> cart: 장바구니 상품 추가
+    activate cart
+    cart ->> cart: 동일 상품 등록 여부 검증
+    alt 동일한 상품이 이미 등록되어있을 경우
+        cart -->>  client: 중복 등록 오류 응답
+    else 동일한 상품이 등록되어있지 않을 경우
+        cart ->> persistence: 장바구니 상품 저장
+        activate persistence
+        persistence -->> cart: 저장 결과 응답
+        deactivate persistence
+    end
+    cart -->> client: 결과 응답
+    deactivate cart

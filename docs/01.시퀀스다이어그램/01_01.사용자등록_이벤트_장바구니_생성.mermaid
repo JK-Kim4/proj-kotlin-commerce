@@ -1,0 +1,21 @@
+sequenceDiagram
+    actor client
+    participant user
+    participant user registered event
+    participant cart
+    participant persistence
+    client ->> user: 사용자 등록 요청
+    user ->> persistence : 식별자 사용자 등록 여부 조회
+    alt 사용자가 이미 등록되어있을 경우
+        persistence -->> user: 사용자 기등록 응답
+        user -->> client: 사용자 기등록 응답
+    else
+        user ->> user: 사용자 생성
+        user ->> persistence: 사용자 저장
+        persistence -->> user: 사용자 등록 응답
+        user -->> client: 사용자 등록 응답
+    end
+    user ->> user registered event: 사용자 등록 이벤트 발행
+    user registered event ->> cart: 사용자 등록 이벤트 수신
+    cart ->> cart: 사용자 장바구니 생성
+    cart ->> persistence: 사용자 장바구니 정보 저장
