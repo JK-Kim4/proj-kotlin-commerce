@@ -1,8 +1,7 @@
 package com.tutomato.commerce.application.order
 
+import com.tutomato.commerce.domain.order.OrderCommand
 import com.tutomato.commerce.domain.order.OrderRepository
-import com.tutomato.commerce.domain.order.dto.OrderProductSnapshot
-import com.tutomato.commerce.domain.order.dto.OrderSaveCommand
 import com.tutomato.commerce.domain.product.Options
 import com.tutomato.commerce.domain.product.Product
 import com.tutomato.commerce.domain.product.ProductRepository
@@ -50,7 +49,7 @@ class OrderCreateConcurrentTest(
     fun `동시 주문 생성 재고 차감 테스트`() {
         runBlocking {
             val snapshots = listOf(
-                OrderProductSnapshot(
+                OrderCommand.OrderProductSnapshot(
                     productId = 판매상픔.id,
                     optionId = 상품옵션.id,
                     price = 판매상픔.price.value,
@@ -59,11 +58,11 @@ class OrderCreateConcurrentTest(
             )
 
             val commands = listOf(
-                OrderSaveCommand(userId = 1L, snapshots = snapshots),
-                OrderSaveCommand(userId = 2L, snapshots = snapshots),
-                OrderSaveCommand(userId = 3L, snapshots = snapshots),
-                OrderSaveCommand(userId = 4L, snapshots = snapshots),
-                OrderSaveCommand(userId = 5L, snapshots = snapshots),
+                OrderCommand.OrderSaveCommand(userId = 1L, snapshots = snapshots),
+                OrderCommand.OrderSaveCommand(userId = 2L, snapshots = snapshots),
+                OrderCommand.OrderSaveCommand(userId = 3L, snapshots = snapshots),
+                OrderCommand.OrderSaveCommand(userId = 4L, snapshots = snapshots),
+                OrderCommand.OrderSaveCommand(userId = 5L, snapshots = snapshots),
             )
 
             // 2) 동시 출발 세팅
@@ -86,9 +85,5 @@ class OrderCreateConcurrentTest(
             //검증
             assertThat(option.stock.stock).isEqualTo(5)
         }
-
     }
-
-
-
 }

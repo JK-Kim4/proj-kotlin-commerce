@@ -9,11 +9,11 @@ import javax.management.InstanceAlreadyExistsException
 @Transactional
 class ProductService(private val productRepository: ProductRepository) {
 
-    fun save(command: ProductSave): Product {
+    fun save(command: ProductCommand.ProductSave): Product {
         return productRepository.save(command.toEntity())
     }
 
-    fun save(command: ProductOptionSave): Option {
+    fun save(command: ProductCommand.ProductOptionSave): Option {
         val product = productRepository.findById(command.productId)
             ?: throw NoResultException("상품이 존재하지않습니다.")
 
@@ -24,7 +24,7 @@ class ProductService(private val productRepository: ProductRepository) {
         return productRepository.save(command.toEntity(product))
     }
 
-    fun decreaseStock(command : DecreaseStock) {
+    fun decreaseStock(command : ProductCommand.DecreaseStock) {
         val option = productRepository.findOptionById(command.optionId)
             ?: throw NoResultException("상품 옵션이 존재하지않습니다.")
 
@@ -33,7 +33,11 @@ class ProductService(private val productRepository: ProductRepository) {
         productRepository.save(option)
     }
 
-    fun updateStatus(command : UpdateStatus) {
+    fun decreaseStock(command: ProductCommand.Products) {
+
+    }
+
+    fun updateStatus(command : ProductCommand.UpdateStatus) {
         val product = productRepository.findById(command.productId)
             ?: throw NoResultException("상품이 존재하지않습니다.")
 

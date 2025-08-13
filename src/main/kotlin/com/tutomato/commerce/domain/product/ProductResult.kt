@@ -5,7 +5,7 @@ import java.time.LocalDate
 
 class ProductResult {
 
-    class Products (
+    data class Products (
         val products : List<Product>
     ) {
         companion object {
@@ -20,7 +20,7 @@ class ProductResult {
         }
     }
 
-    class Product (
+    data class Product (
         val id: Long,
         //val sellerId: Long,
         val name: String,
@@ -53,7 +53,7 @@ class ProductResult {
 
     }
 
-    class OptionResult(
+    data class OptionResult(
         val id: Long,
         val colorCode: String,
         val size: String,

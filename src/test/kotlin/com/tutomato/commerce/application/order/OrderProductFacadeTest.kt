@@ -1,10 +1,8 @@
 package com.tutomato.commerce.application.order
 
-import com.tutomato.commerce.domain.order.OrderCreatedEvent
+import com.tutomato.commerce.domain.order.OrderCommand
 import com.tutomato.commerce.domain.order.OrderRepository
 import com.tutomato.commerce.domain.order.OrderStatus
-import com.tutomato.commerce.domain.order.dto.OrderProductSnapshot
-import com.tutomato.commerce.domain.order.dto.OrderSaveCommand
 import com.tutomato.commerce.domain.product.Options
 import com.tutomato.commerce.domain.product.Product
 import com.tutomato.commerce.domain.product.ProductRepository
@@ -21,12 +19,8 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.actuate.startup.StartupEndpoint
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.event.ApplicationEvents
-import org.springframework.test.context.event.RecordApplicationEvents
 import org.testcontainers.junit.jupiter.Testcontainers
-import java.math.BigDecimal
 
 @SpringBootTest
 @Testcontainers
@@ -40,7 +34,7 @@ class OrderProductFacadeTest(
 
     lateinit var 구매자: User
     lateinit var 판매상픔: Product
-    lateinit var command: OrderSaveCommand
+    lateinit var command: OrderCommand.OrderSaveCommand
     var 상품옵션 = OptionDomainSupport.fixture(stock = 10)
 
 
@@ -77,10 +71,10 @@ class OrderProductFacadeTest(
         userRepository.save(구매자)
         productRepository.save(판매상픔)
 
-        command = OrderSaveCommand(
+        command = OrderCommand.OrderSaveCommand(
             userId = 구매자.id,
             snapshots = listOf(
-                OrderProductSnapshot(
+                OrderCommand.OrderProductSnapshot(
                     productId = 판매상픔.id,
                     optionId = 상품옵션.id,
                     price = 판매상픔.price.value,

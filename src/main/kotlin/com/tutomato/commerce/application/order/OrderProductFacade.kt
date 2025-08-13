@@ -1,9 +1,9 @@
 package com.tutomato.commerce.application.order
 
+import com.tutomato.commerce.domain.order.OrderCommand
 import com.tutomato.commerce.domain.order.OrderCreatedEvent
+import com.tutomato.commerce.domain.order.OrderResult
 import com.tutomato.commerce.domain.order.OrderService
-import com.tutomato.commerce.domain.order.dto.OrderSaveCommand
-import com.tutomato.commerce.domain.order.dto.OrderSaveResult
 import com.tutomato.commerce.domain.product.ProductService
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
@@ -17,7 +17,7 @@ class OrderProductFacade(
     private val productService: ProductService,
 ) {
 
-    fun create(command: OrderSaveCommand): OrderSaveResult {
+    fun create(command: OrderCommand.OrderSaveCommand): OrderResult.OrderSaveResult {
         //사용자 미결제 주문 여부 확인
         require(!orderService.existsUnpaidOrderByUserId(command.userId)) {
             "미결제 주문이 존재합니다."
@@ -39,6 +39,6 @@ class OrderProductFacade(
         //주문 이벤트 발행
         publisher.publishEvent(OrderCreatedEvent.from(order))
 
-        return OrderSaveResult.from(order)
+        return OrderResult.OrderSaveResult.from(order)
     }
 }
