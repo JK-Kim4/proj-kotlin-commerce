@@ -14,9 +14,10 @@ class TestcontainersConfiguration {
 
     companion object {
         val mySqlContainer: MySQLContainer<*> = MySQLContainer(DockerImageName.parse("mysql:8.0"))
-            .withDatabaseName("hhplus")
+            .withDatabaseName("commerce")
             .withUsername("test")
             .withPassword("test")
+            .withCommand("--lower_case_table_names=1") // 대소문자 무시 설정
             .apply {
                 start()
             }

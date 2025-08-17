@@ -45,13 +45,13 @@ class OrderProductFacadeTest(
         orderRepository.save(미결제주문)
 
         //when then
-        assertThrows<IllegalArgumentException> { orderProductFacade.create(command) }
+        assertThrows<IllegalArgumentException> { orderProductFacade.order(command) }
     }
 
     @Test
     fun `주문이 정상적으로 생성되면 주문 수량만큼 상품 재고가 차감된다`() {
         //when
-        val saveResult = orderProductFacade.create(command)
+        val saveResult = orderProductFacade.order(command)
         val option = optionJpaRepository.findById(상품옵션.id).get()
         val order = orderRepository.findById(saveResult.id)!!
 
@@ -63,7 +63,7 @@ class OrderProductFacadeTest(
 
     @BeforeEach
     fun init() {
-        구매자 = User("tester")
+        구매자 = User(name = "tester")
         판매상픔 = ProductDomainSupport.fixture(
             options = Options(listOf(상품옵션))
         )
