@@ -7,8 +7,10 @@ import com.tutomato.commerce.domain.user.UserCommand
 import com.tutomato.commerce.domain.user.UserService
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 
 @Component
+@Transactional
 class PaymentUserFacade(
     private val userService: UserService,
     private val paymentService: PaymentService,

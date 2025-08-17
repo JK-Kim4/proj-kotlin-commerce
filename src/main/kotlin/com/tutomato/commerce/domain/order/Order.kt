@@ -50,6 +50,11 @@ class Order protected constructor(
         orderStatus = OrderStatus.PENDING
     }
 
+    fun complete() {
+        updatedAt = LocalDateTime.now()
+        orderStatus = OrderStatus.PAID
+    }
+
     companion object {
         // 정적 팩토리: 생성 시 라인 세팅 후 한번에 계산
         fun create(
