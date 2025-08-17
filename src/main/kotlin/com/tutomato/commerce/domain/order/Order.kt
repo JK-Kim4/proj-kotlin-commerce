@@ -21,9 +21,6 @@ class Order protected constructor(
     var orderStatus: OrderStatus = OrderStatus.CREATED,
 
     @Embedded
-    @AttributeOverrides(
-        AttributeOverride(name = "subTotal", column = Column(name = "sub_total_amount"))
-    )
     var orderAmounts: OrderAmounts = OrderAmounts.zero(),
 ) {
 

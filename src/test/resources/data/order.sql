@@ -17,7 +17,7 @@ VALUES
 
 
 -- 주문 상품 데이터 삽입 (order_id 논리적 FK)
-INSERT INTO order_line (order_line_id, order_id, product_id, product_option_id, quantity, price)
+INSERT INTO order_line (order_line_id, order_id, product_id, option_id, quantity, price)
 VALUES
     (1, 1, 1, 1, 1, 50000),
     (2, 1, 1, 2, 2, 50000),
