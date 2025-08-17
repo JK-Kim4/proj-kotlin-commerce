@@ -4,6 +4,7 @@ import com.tutomato.commerce.application.order.OrderProductFacade
 import com.tutomato.commerce.domain.order.OrderCommand
 import com.tutomato.commerce.domain.payment.Payment
 import com.tutomato.commerce.domain.payment.PaymentRepository
+import com.tutomato.commerce.support.async.AsyncSupport.Companion.waitUntilNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -41,17 +42,6 @@ class PaymentOrderCreatedEventListenerTest(
         //then
         assertThat(payment).isNotNull
         assertThat(payment!!.amount.value.toLong()).isEqualTo(orderResult.subTotal.toLong())
-    }
-
-    private fun <T> waitUntilNotNull(timeoutSeconds: Long, check: () -> T?): T? {
-        val start = System.currentTimeMillis()
-        val timeout = Duration.ofSeconds(timeoutSeconds).toMillis()
-        while (System.currentTimeMillis() - start < timeout) {
-            val result = check()
-            if (result != null) return result
-            Thread.sleep(100)
-        }
-        return null
     }
 
     val snapshots = listOf(

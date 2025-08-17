@@ -2,8 +2,10 @@ package com.tutomato.commerce.domain.order
 
 import jakarta.persistence.NoResultException
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
+@Transactional
 class OrderService(
     private val orderRepository: OrderRepository
 ) {
