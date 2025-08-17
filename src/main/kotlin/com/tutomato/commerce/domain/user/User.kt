@@ -11,9 +11,6 @@ class User(
     val name: String,
 
     @Embedded
-    @AttributeOverrides(
-        AttributeOverride(name = "balance", column = Column(name = "balance"))
-    )
     var balance: Balance = Balance()
 ) {
     @Version
