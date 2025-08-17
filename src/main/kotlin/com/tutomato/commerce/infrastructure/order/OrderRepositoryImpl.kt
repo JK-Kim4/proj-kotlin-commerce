@@ -1,6 +1,7 @@
 package com.tutomato.commerce.infrastructure.order
 
 import com.tutomato.commerce.domain.order.Order
+import com.tutomato.commerce.domain.order.OrderLine
 import com.tutomato.commerce.domain.order.OrderRepository
 import org.springframework.stereotype.Repository
 
@@ -25,6 +26,14 @@ class OrderRepositoryImpl(
 
     override fun findById(orderId: Long): Order? {
         return orderJpaRepository.findById(orderId).orElse(null)
+    }
+
+    override fun findAll(): List<Order> {
+        return orderJpaRepository.findAll()
+    }
+
+    override fun findOrderLinesAll(): List<OrderLine> {
+        return orderLineJpaRepository.findAll()
     }
 
     override fun deleteAll() {

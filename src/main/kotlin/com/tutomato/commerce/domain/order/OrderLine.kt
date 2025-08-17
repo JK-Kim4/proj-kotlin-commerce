@@ -4,8 +4,16 @@ import com.tutomato.commerce.common.model.Money
 import jakarta.persistence.*
 
 @Entity
+@Table(name = "order_line")
 class OrderLine(
+
     @Embedded
+    @AttributeOverrides(
+        AttributeOverride(name = "productId", column = Column(name = "product_id")),
+        AttributeOverride(name = "optionId", column = Column(name = "option_id")),
+        AttributeOverride(name = "price", column = Column(name = "price")),
+        AttributeOverride(name = "quantity", column = Column(name = "quantity")),
+    )
     val snapshot: ProductSnapshot,
 ) {
     init {

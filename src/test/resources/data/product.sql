@@ -1,7 +1,7 @@
 -- 테이블 데이터 초기화
 SET FOREIGN_KEY_CHECKS = 0;
-TRUNCATE TABLE product_option;
 TRUNCATE TABLE product;
+TRUNCATE TABLE product_option;
 SET FOREIGN_KEY_CHECKS = 1;
 
 
@@ -18,8 +18,8 @@ VALUES
 -- 옵션 데이터 삽입 (product_id 논리적 FK)
 INSERT INTO product_option (id, product_id, color_code, size, stock)
 VALUES
-    (2, 1, "#ffffff", "S", 50),
     (1, 1, "#ffffff", "M", 50),
+    (2, 1, "#ffffff", "S", 50),
     (3, 1, "#ffffff", "L", 10),
     (4, 2, "#dfaerd", "M", 12),
     (5, 3, "#fjdjvd", "M", 12),

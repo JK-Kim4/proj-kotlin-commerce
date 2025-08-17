@@ -17,9 +17,13 @@ class Order protected constructor(
     val userId: Long,
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "order_status")
     var orderStatus: OrderStatus = OrderStatus.CREATED,
 
     @Embedded
+    @AttributeOverrides(
+        AttributeOverride(name = "subTotal", column = Column(name = "sub_total_amount"))
+    )
     var orderAmounts: OrderAmounts = OrderAmounts.zero(),
 ) {
 
