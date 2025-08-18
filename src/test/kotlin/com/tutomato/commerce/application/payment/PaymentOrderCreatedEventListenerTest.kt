@@ -4,22 +4,18 @@ import com.tutomato.commerce.application.order.OrderProductFacade
 import com.tutomato.commerce.domain.order.OrderCommand
 import com.tutomato.commerce.domain.payment.Payment
 import com.tutomato.commerce.domain.payment.PaymentRepository
+import com.tutomato.commerce.support.annotation.SupportSql
 import com.tutomato.commerce.support.async.AsyncSupport.Companion.waitUntilNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.jdbc.Sql
 import org.testcontainers.junit.jupiter.Testcontainers
 import java.math.BigDecimal
-import java.time.Duration
 
 @SpringBootTest
 @Testcontainers
-@Sql(
-    scripts = ["classpath:data/product.sql"],
-    executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
-)
+@SupportSql
 class PaymentOrderCreatedEventListenerTest(
     @Autowired private val orderProductFacade: OrderProductFacade,
     @Autowired private val paymentRepository: PaymentRepository,

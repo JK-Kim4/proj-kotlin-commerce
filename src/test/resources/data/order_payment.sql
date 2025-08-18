@@ -7,14 +7,17 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 
 -- 주문 데이터 삽입
-INSERT INTO orders (order_id, user_id, order_status, sub_total_amount, created_at, updated_at)
+INSERT INTO orders (order_id, user_id, order_status, sub_total_amount, created_at, updated_at, paid_at)
 VALUES
-    (1, 1, "PENDING", 100000, now(), now()),
-    (2, 2, "PENDING", 200000, now(), now()),
-    (3, 3, "CREATED", 300000, now(), now()),
-    (4, 4, "PAID", 400000, now(), now()),
-    (5, 4, "EXPIRED", 400000, now(), now()),
-    (6, 5, "CANCELED", 500000, now(), now());
+    (1, 1, "PAID", 500000, now(), now(), "2025-01-01 00:00:00"),
+    (2, 2, "PAID", 500000, now(), now(), "2024-12-4 00:00:00"),
+    (3, 3, "CREATED", 300000, now(), now(), null),
+    (4, 4, "PAID", 400000, now(), now(), null),
+    (5, 4, "EXPIRED", 400000, now(), now(), null),
+    (6, 5, "CANCELED", 500000, now(), now(), null),
+    (7, 1, "PENDING", 100000, now(), now(), null),
+    (8, 2, "PENDING", 200000, now(), now(), null);
+
 
 
 -- 주문 상품 데이터 삽입 (order_id 논리적 FK)
