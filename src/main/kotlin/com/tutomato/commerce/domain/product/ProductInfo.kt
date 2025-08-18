@@ -1,5 +1,6 @@
 package com.tutomato.commerce.domain.product
 
+import jakarta.persistence.Column
 import jakarta.persistence.Embeddable
 import java.time.LocalDate
 
@@ -8,6 +9,8 @@ class ProductInfo(
 
     val name: String,
     val description: String,
+
+    @Column(name = "published_date")
     val publishedDate: LocalDate,
     //val seller: Seller,
 

@@ -28,4 +28,6 @@ data class Money(
 
     fun isGreaterThan(other: Money): Boolean = value > other.value
 
+    fun isGreaterThanOrEquals(other: Money): Boolean = value >= other.value
+
 }

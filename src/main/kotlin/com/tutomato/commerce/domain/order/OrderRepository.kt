@@ -9,6 +9,10 @@ interface OrderRepository {
 
     fun findByUserId(userId: Long): List<Order>
 
+    fun findAll(): List<Order>
+
+    fun findOrderLinesAll(): List<OrderLine>
+
     fun save(order: Order): Order
 
     fun deleteAll()

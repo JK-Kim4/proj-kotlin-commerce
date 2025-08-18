@@ -17,6 +17,7 @@ class Order protected constructor(
     val userId: Long,
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "order_status")
     var orderStatus: OrderStatus = OrderStatus.CREATED,
 
     @Embedded
@@ -48,6 +49,11 @@ class Order protected constructor(
 
     fun pending() {
         orderStatus = OrderStatus.PENDING
+    }
+
+    fun complete() {
+        updatedAt = LocalDateTime.now()
+        orderStatus = OrderStatus.PAID
     }
 
     companion object {

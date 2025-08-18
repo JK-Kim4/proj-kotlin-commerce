@@ -12,12 +12,12 @@ import org.springframework.transaction.annotation.Transactional
 @Component
 @Transactional
 class OrderProductFacade(
-    private val publisher: ApplicationEventPublisher,
     private val orderService: OrderService,
     private val productService: ProductService,
+    private val applicationEventPublisher: ApplicationEventPublisher,
 ) {
 
-    fun create(command: OrderCommand.OrderSaveCommand): OrderResult.OrderSaveResult {
+    fun order(command: OrderCommand.OrderSaveCommand): OrderResult.OrderSaveResult {
         //사용자 미결제 주문 여부 확인
         require(!orderService.existsUnpaidOrderByUserId(command.userId)) {
             "미결제 주문이 존재합니다."
@@ -37,7 +37,7 @@ class OrderProductFacade(
         order.pending()
 
         //주문 이벤트 발행
-        publisher.publishEvent(OrderCreatedEvent.from(order))
+        applicationEventPublisher.publishEvent(OrderCreatedEvent.from(order))
 
         return OrderResult.OrderSaveResult.from(order)
     }

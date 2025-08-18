@@ -21,7 +21,7 @@ class OrderServiceIntegrationTest(
 
     @BeforeEach
     fun init() {
-        사용자1 = User("test user")
+        사용자1 = User(name = "test user")
         userRepository.save(사용자1)
         userRepository.flush()
     }

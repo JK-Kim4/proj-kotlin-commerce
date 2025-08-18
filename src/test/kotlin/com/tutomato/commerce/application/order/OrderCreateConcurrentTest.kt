@@ -36,7 +36,7 @@ class OrderCreateConcurrentTest(
 
     @BeforeEach
     fun init() {
-        구매자 = User("tester")
+        구매자 = User(name = "tester")
         판매상픔 = ProductDomainSupport.fixture(
             options = Options(listOf(상품옵션))
         )
@@ -73,7 +73,7 @@ class OrderCreateConcurrentTest(
             val jobs = commands.map { command ->
                 async(dispatcher) {
                     startGate.await()
-                    command to runCatching { orderProductFacade.create(command) }
+                    command to runCatching { orderProductFacade.order(command) }
                 }
             }
 

@@ -9,10 +9,17 @@ class Option (
     var id: Long = 0,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(
+        name = "product_id",
+        nullable = false,
+        foreignKey = ForeignKey(ConstraintMode.NO_CONSTRAINT)
+    )
     var product: Product? = null,
 
     @Embedded
+    @AttributeOverrides(
+        AttributeOverride(name = "code", column = Column(name = "color_code"))
+    )
     val color: Color,
 
     @Enumerated(EnumType.STRING)

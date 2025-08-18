@@ -1,5 +1,6 @@
 package com.tutomato.commerce.domain.order
 
+import jakarta.persistence.NoResultException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -13,10 +14,18 @@ class OrderService(
         return orderRepository.save(command.toEntity())
     }
 
-    @Transactional(readOnly = true)
     fun existsUnpaidOrderByUserId(userId: Long): Boolean {
         val orders = orderRepository.findByUserId(userId)
 
         return orders.any { it.orderStatus.isUnpaid() }
+    }
+
+    fun completeOrder(command: OrderCommand.CompleteOrder): Order {
+        val order = orderRepository.findById(command.orderId)
+            ?: throw NoResultException("Order with id ${command.orderId} not found")
+
+        order.complete()
+
+        return order
     }
 }

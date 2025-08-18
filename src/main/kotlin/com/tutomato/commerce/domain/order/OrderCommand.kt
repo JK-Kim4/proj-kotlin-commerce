@@ -38,4 +38,8 @@ class OrderCommand {
             )
         }
     }
+
+    data class CompleteOrder(
+        val orderId: Long,
+    )
 }
