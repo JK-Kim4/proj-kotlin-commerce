@@ -16,22 +16,27 @@ class Product (
     var info: ProductInfo,
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "sale_status")
     var saleStatus: SaleStatus? = SaleStatus.ON_SALE,
 
     @Enumerated(EnumType.STRING)
     val category: Category,
 
     @Embedded
+    @AttributeOverrides(
+        AttributeOverride(name = "value", column = Column(name = "price"))
+    )
     val price: Money,
 
     @Transient
     var availableOptions: Options = Options(),
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(name = "created_at",updatable = false)
     val createdAt: LocalDateTime? = LocalDateTime.now(),
 
     @LastModifiedDate
+    @Column(name = "updated_at")
     var updatedAt: LocalDateTime? = LocalDateTime.now(),
 
     ){

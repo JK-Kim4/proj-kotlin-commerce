@@ -28,7 +28,7 @@ class ProductServiceTest {
         @Test
         fun `상품이 존재하지 않을 경우 NoResultException 오류`() {
             //given
-            val command = ProductOptionSave(
+            val command = ProductCommand.ProductOptionSave(
                 productId = 미등록상품고유번호,
                 colorCode = "testcode",
                 size = Size.XXL.name,
@@ -42,7 +42,7 @@ class ProductServiceTest {
         @Test
         fun `동일한 옵션이 이미 등록되어있을 경우 InstanceAlreadyExistsException 오류`() {
             // given
-            val command = ProductOptionSave(
+            val command = ProductCommand.ProductOptionSave(
                 productId = 상품고유번호,
                 colorCode = 상품옵션.color.code,
                 size = 상품옵션.size.name,
@@ -62,7 +62,7 @@ class ProductServiceTest {
         @Test
         fun `상품 옵션이 존재하지 않을 경우 NoResultException 오류`() {
             //given
-            val command = DecreaseStock(
+            val command = ProductCommand.DecreaseStock(
                 productId = 상품고유번호,
                 optionId = 미등록옵션고유번호,
                 decreaseAmount = 10
@@ -75,7 +75,7 @@ class ProductServiceTest {
         @Test
         fun `상품 옵션의 재고가 부족할 경우 IllegalArgumentException 오류`() {
             //given
-            val command = DecreaseStock(
+            val command = ProductCommand.DecreaseStock(
                 productId = 상품고유번호,
                 optionId = 상품옵션고유번호01,
                 decreaseAmount = 상품옵션초기재고 + 1
@@ -90,7 +90,7 @@ class ProductServiceTest {
     @Test
     fun `상품 판매 상태 수정 요청 시 상품이 존재하지 않을 경우 NoResultException 오류`() {
         //given
-        val command = UpdateStatus(
+        val command = ProductCommand.UpdateStatus(
             productId = 미등록상품고유번호,
             updateStatus = SaleStatus.SOLD_OUT.name
         )

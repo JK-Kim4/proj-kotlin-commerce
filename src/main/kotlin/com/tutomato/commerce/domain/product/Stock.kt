@@ -6,7 +6,6 @@ import jakarta.persistence.Embeddable
 class Stock(
 
     val stock: Int
-
 ) {
 
     fun decrease(amount : Int) : Stock{
@@ -24,6 +23,10 @@ class Stock(
     fun hasEnoughStock(stock: Int): Boolean {
         return this.stock >= stock
     }
+
+    operator fun plus(other: Stock): Stock = Stock(stock + other.stock)
+
+    operator fun minus(other: Stock): Stock = Stock(stock - other.stock)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

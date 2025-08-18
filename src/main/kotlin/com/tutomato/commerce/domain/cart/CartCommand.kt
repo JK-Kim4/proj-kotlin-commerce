@@ -2,7 +2,7 @@ package com.tutomato.commerce.domain.cart
 
 class CartCommand {
 
-    class Save(
+    data class Save(
         val userId: Long,
     ) {
         fun toEntity() : Cart {
@@ -10,7 +10,7 @@ class CartCommand {
         }
     }
 
-    class SaveCartItem(
+    data class SaveCartItem(
         val userId: Long,
         val productId: Long,
         val optionId: Long,
@@ -26,16 +26,16 @@ class CartCommand {
         }
     }
 
-    class UpdateItemAmount(
+    data class UpdateItemAmount(
         val cartItemId: Long,
         val updateAmount: Int,
     )
 
-    class Delete(
+    data class Delete(
         val cartId : Long,
     )
 
-    class DeleteCartItem(
+    data class DeleteCartItem(
         val cartItemId : Long,
     )
 }

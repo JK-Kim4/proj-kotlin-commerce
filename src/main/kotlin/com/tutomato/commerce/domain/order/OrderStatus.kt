@@ -1,0 +1,14 @@
+package com.tutomato.commerce.domain.order
+
+enum class OrderStatus {
+    CREATED,
+    PENDING,
+    PAID,
+    CANCELED,
+    EXPIRED,
+
+}
+
+fun OrderStatus.isUnpaid(): Boolean {
+    return this == OrderStatus.CREATED || this == OrderStatus.PENDING
+}

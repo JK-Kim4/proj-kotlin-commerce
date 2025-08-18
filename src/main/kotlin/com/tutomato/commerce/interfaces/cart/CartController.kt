@@ -1,7 +1,7 @@
 package com.tutomato.commerce.interfaces.cart
 
-import com.tutomato.commerce.domain.authentication.Authenticated
-import com.tutomato.commerce.domain.authentication.AuthenticatedUser
+import com.tutomato.commerce.domain.user.Authenticated
+import com.tutomato.commerce.domain.user.AuthenticatedUser
 import com.tutomato.commerce.domain.cart.CartService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

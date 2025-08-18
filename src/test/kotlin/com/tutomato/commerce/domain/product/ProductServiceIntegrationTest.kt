@@ -25,7 +25,7 @@ class ProductServiceIntegrationTest(
     @Test
     fun `재고를 차감한다`(){
         //given
-        val command = DecreaseStock(productId = 등록상품.id, optionId = 상품판매옵션.id, 9)
+        val command = ProductCommand.DecreaseStock(productId = 등록상품.id, optionId = 상품판매옵션.id, 9)
 
         //when
         productService.decreaseStock(command)
@@ -38,7 +38,7 @@ class ProductServiceIntegrationTest(
     @Test
     fun `상품의 판매 상태를 변경한다`() {
         //given
-        val command = UpdateStatus(productId = 등록상품.id, updateStatus = SaleStatus.SALE_STOPPED.name)
+        val command = ProductCommand.UpdateStatus(productId = 등록상품.id, updateStatus = SaleStatus.SALE_STOPPED.name)
 
         //when
         productService.updateStatus(command)

@@ -13,10 +13,21 @@ data class Money(
         require(value >= BigDecimal.ZERO) { "금액은 0 이상이어야 합니다." }
     }
 
+    companion object {
+        val ZERO = Money(BigDecimal.ZERO)
+    }
+
     operator fun plus(other: Money): Money = Money(value + other.value)
 
     operator fun minus(other: Money): Money = Money(value - other.value)
 
+    operator fun times(quantity: Int): Money {
+        require(quantity >= 0) { "수량은 0 이상이어야 합니다." }
+        return Money(value.multiply(BigDecimal(quantity)))
+    }
+
     fun isGreaterThan(other: Money): Boolean = value > other.value
+
+    fun isGreaterThanOrEquals(other: Money): Boolean = value >= other.value
 
 }

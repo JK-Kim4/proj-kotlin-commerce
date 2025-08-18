@@ -1,6 +1,6 @@
 package com.tutomato.commerce.interfaces.cart
 
-import com.tutomato.commerce.domain.authentication.AuthenticatedUser
+import com.tutomato.commerce.domain.user.AuthenticatedUser
 import org.springframework.http.ResponseEntity
 
 interface CartApiSpec {

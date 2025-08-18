@@ -12,7 +12,7 @@ object ProductDomainSupport {
         name: String = "테스트 상품",
         description: String = "상품 설명",
         publishedDate: LocalDate = LocalDate.now(),
-        saleStatus: SaleStatus? = null,
+        saleStatus: SaleStatus = SaleStatus.ON_SALE,
         category: Category = Category.TOP,
         options: Options = Options(),
         price: BigDecimal = BigDecimal.valueOf(5000),

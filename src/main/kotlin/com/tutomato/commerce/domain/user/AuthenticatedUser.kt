@@ -1,4 +1,4 @@
-package com.tutomato.commerce.domain.authentication
+package com.tutomato.commerce.domain.user
 
 class AuthenticatedUser(
     val userId: Long,
