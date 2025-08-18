@@ -4,6 +4,7 @@ import com.tutomato.commerce.domain.order.Order
 import com.tutomato.commerce.domain.order.OrderLine
 import com.tutomato.commerce.domain.order.OrderRepository
 import org.springframework.stereotype.Repository
+import java.time.LocalDateTime
 
 @Repository
 class OrderRepositoryImpl(
@@ -38,5 +39,12 @@ class OrderRepositoryImpl(
 
     override fun deleteAll() {
         orderJpaRepository.deleteAll()
+    }
+
+    override fun findPaidOrderBetween(
+        startDate: LocalDateTime,
+        endDate: LocalDateTime
+    ): List<Order> {
+        return orderJpaRepository.findPaidOrderBetween(startDate, endDate)
     }
 }
