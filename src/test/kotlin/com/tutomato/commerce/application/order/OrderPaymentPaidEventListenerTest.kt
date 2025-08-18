@@ -3,10 +3,8 @@ package com.tutomato.commerce.application.order
 import com.tutomato.commerce.application.payment.PaymentUserFacade
 import com.tutomato.commerce.common.model.Money
 import com.tutomato.commerce.domain.order.Order
-import com.tutomato.commerce.domain.order.OrderCommand
 import com.tutomato.commerce.domain.order.OrderRepository
 import com.tutomato.commerce.domain.order.OrderStatus
-import com.tutomato.commerce.domain.payment.Payment
 import com.tutomato.commerce.domain.payment.PaymentCommand
 import com.tutomato.commerce.domain.payment.PaymentMethod
 import com.tutomato.commerce.domain.payment.PaymentRepository
@@ -14,7 +12,6 @@ import com.tutomato.commerce.domain.payment.PaymentType
 import com.tutomato.commerce.domain.user.UserRepository
 import com.tutomato.commerce.support.async.AsyncSupport.Companion.waitUntilNotNull
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -28,8 +25,8 @@ import java.math.BigDecimal
     scripts = [
         "classpath:data/product.sql",
         "classpath:data/user.sql",
-        "classpath:data/order.sql",
-        "classpath:data/payment.sql", ],
+        "classpath:data/order_payment.sql",
+        ],
     executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
 )
 class OrderPaymentPaidEventListenerTest(

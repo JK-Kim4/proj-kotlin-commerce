@@ -16,7 +16,11 @@ class Payment(
         AttributeOverride(name = "value", column = Column(name = "amount"))
     )
     val amount: Money,
+
+    @Enumerated(EnumType.STRING)
     var method: PaymentMethod? = null,
+
+    @Enumerated(EnumType.STRING)
     var type: PaymentType? = null,
     var paidAt: LocalDateTime? = null,
 ) {
