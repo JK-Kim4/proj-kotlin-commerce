@@ -12,21 +12,12 @@ class OrderRepositoryImpl(
     private val orderLineJpaRepository: OrderLineJpaRepository
 ): OrderRepository {
 
-    override fun save(order: Order): Order {
-        return orderJpaRepository.save(order)
-            .also {
-                val orderLine = order.orderLines
-                orderLine.setOrder(it)
-                orderLineJpaRepository.saveAll(orderLine.orderLines)
-            }
+    override fun findById(orderId: Long): Order? {
+        return orderJpaRepository.findById(orderId).orElse(null)
     }
 
     override fun findByUserId(userId: Long): List<Order> {
         return orderJpaRepository.findByUserId(userId)
-    }
-
-    override fun findById(orderId: Long): Order? {
-        return orderJpaRepository.findById(orderId).orElse(null)
     }
 
     override fun findAll(): List<Order> {
@@ -37,14 +28,27 @@ class OrderRepositoryImpl(
         return orderLineJpaRepository.findAll()
     }
 
-    override fun deleteAll() {
-        orderJpaRepository.deleteAll()
-    }
-
     override fun findPaidOrderBetween(
         startDate: LocalDateTime,
         endDate: LocalDateTime
     ): List<Order> {
         return orderJpaRepository.findPaidOrderBetween(startDate, endDate)
+    }
+
+    override fun findOrderLinesByOrderIds(orderIds: Set<Long>): List<OrderLine> {
+        return orderLineJpaRepository.findOrderLinesByOrderIds(orderIds)
+    }
+
+    override fun save(order: Order): Order {
+        return orderJpaRepository.save(order)
+            .also {
+                val orderLine = order.orderLines
+                orderLine.setOrder(it)
+                orderLineJpaRepository.saveAll(orderLine.orderLines)
+            }
+    }
+
+    override fun deleteAll() {
+        orderJpaRepository.deleteAll()
     }
 }

@@ -16,6 +16,8 @@ interface OrderRepository {
 
     fun findPaidOrderBetween(startDate: LocalDateTime, endDate: LocalDateTime): List<Order>
 
+    fun findOrderLinesByOrderIds(orderIds: Set<Long>): List<OrderLine>
+
     fun save(order: Order): Order
 
     fun deleteAll()

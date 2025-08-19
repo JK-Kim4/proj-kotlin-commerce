@@ -13,8 +13,9 @@ interface OrderJpaRepository: JpaRepository<Order, Long> {
     @Query(
         "select p " +
         "from Order p " +
-        "where p.orderStatus = 'PAID' " +
-        "and p.paidAt between :startDateTime and :endDateTime")
+        "where p.paidAt between :startDateTime and :endDateTime " +
+        "and p.orderStatus = 'PAID'")
+
     fun findPaidOrderBetween(
         @Param("startDateTime") startDateTime: LocalDateTime,
         @Param("endDateTime") endDateTime: LocalDateTime): List<Order>

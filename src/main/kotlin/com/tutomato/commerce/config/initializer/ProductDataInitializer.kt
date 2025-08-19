@@ -6,17 +6,22 @@ import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.math.BigDecimal
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Configuration
 class ProductDataInitializer {
 
+    val env = org.springframework.core.env.StandardEnvironment()
     val availableColors = listOf("RED", "BLUE", "GREEN", "YELLOW", "BLACK", "WHITE")
     val sizes = Size.values().toList()
 
     @Bean
     fun insertDummyProducts(productRepository: ProductRepository): CommandLineRunner {
+
         return CommandLineRunner {
+            if (!env.activeProfiles.contains("local")) return@CommandLineRunner
+
             val batchSize = 1000
             val totalCount = 100_000
             val products = mutableListOf<Product>()
@@ -25,7 +30,8 @@ class ProductDataInitializer {
                 val product = Product(
                     info = ProductInfo(
                         name = "Test Product $i",
-                        description = "상품 설명 $i"
+                        description = "상품 설명 $i",
+                        publishedDate = LocalDate.of(2024,12, 31)
                     ),
                     saleStatus = SaleStatus.ON_SALE,
                     category = Category.TOP,

@@ -34,4 +34,8 @@ class OrderService(
 
         return orderRepository.findPaidOrderBetween(startDateTime, criteria.calculatedAt)
     }
+
+    fun findOrderLinesByOrderIds(orderIds: Set<Long>): List<OrderLine> {
+        return orderRepository.findOrderLinesByOrderIds(orderIds);
+    }
 }

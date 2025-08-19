@@ -52,6 +52,10 @@ class ProductRepositoryImpl(
         return optionJpaRepository.findById(optionId).orElse(null)
     }
 
+    override fun findByIds(productIds: Set<Long>): List<Product> {
+        return productJpaRepository.findByIdsIn(productIds)
+    }
+
     override fun findOptionByOptionIdWithPessimisticLock(optionId: Long): Option? {
         return optionJpaRepository.findOptionByOptionIdWithPessimisticLock(optionId)
     }

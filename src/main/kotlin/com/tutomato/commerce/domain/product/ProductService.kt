@@ -33,8 +33,9 @@ class ProductService(private val productRepository: ProductRepository) {
         productRepository.save(option)
     }
 
-    fun decreaseStock(command: ProductCommand.Products) {
+    fun findByIds(productIds: Set<Long>): List<Product> {
 
+        return productRepository.findByIds(productIds);
     }
 
     fun updateStatus(command : ProductCommand.UpdateStatus) {
