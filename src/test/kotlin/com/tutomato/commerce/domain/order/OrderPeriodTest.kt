@@ -8,7 +8,7 @@ import java.time.temporal.ChronoUnit
 class OrderPeriodTest {
 
     @Test
-    fun `전달받은 LocalDateTime에서 Period 만큼 이전의 LocalDateTime일 반환한다`() {
+    fun `전달받은 LocalDate에서 Period 만큼 이전의 LocalDate일 반환한다`() {
         //given
         val targetDateTime = LocalDateTime.of(2020, 1, 1, 0, 0)
         val threeDaysBeforePeriod = OrderPeriod.THREE_DAYS

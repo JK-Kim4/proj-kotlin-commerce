@@ -17,13 +17,14 @@ class TestcontainersConfiguration {
             .withDatabaseName("commerce")
             .withUsername("test")
             .withPassword("test")
-            .withCommand("--lower_case_table_names=1") // 대소문자 무시 설정
+            .withEnv("TZ", "Asia/Seoul")
+            .withCommand("--default-time-zone=Asia/Seoul --lower_case_table_names=1")
             .apply {
                 start()
             }
 
         init {
-            System.setProperty("spring.datasource.url", mySqlContainer.getJdbcUrl() + "?characterEncoding=UTF-8&serverTimezone=UTC")
+            System.setProperty("spring.datasource.url", mySqlContainer.getJdbcUrl() + "?characterEncoding=UTF-8&serverTimezone=Asia/Seoul")
             System.setProperty("spring.datasource.username", mySqlContainer.username)
             System.setProperty("spring.datasource.password", mySqlContainer.password)
         }
