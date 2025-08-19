@@ -17,7 +17,7 @@ class Order protected constructor(
     val userId: Long,
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "order_status")
+    @Column(name = "order_status", columnDefinition = "varchar(50)")
     var orderStatus: OrderStatus = OrderStatus.CREATED,
 
     @Embedded
