@@ -23,6 +23,7 @@ class Option (
     val color: Color,
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "size", columnDefinition = "varchar(50)")
     val size: Size,
 
     @Embedded

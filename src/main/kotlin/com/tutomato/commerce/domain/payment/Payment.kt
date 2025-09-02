@@ -18,9 +18,11 @@ class Payment(
     val amount: Money,
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "method", columnDefinition = "varchar(50)")
     var method: PaymentMethod? = null,
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "type", columnDefinition = "varchar(50)")
     var type: PaymentType? = null,
     var paidAt: LocalDateTime? = null,
 ) {

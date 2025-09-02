@@ -13,7 +13,6 @@ class ProductController(
     private val productService: ProductService,
 ): ProductApiSpec {
 
-    //val id: Long, val name: String, val description: String, val price : BigDecimal, val stock: Int
     @GetMapping
     override fun products(
     ): ResponseEntity<ProductResponse.Products> {

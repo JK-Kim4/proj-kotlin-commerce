@@ -17,11 +17,21 @@ class Order protected constructor(
     val userId: Long,
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "order_status")
+    @Column(name = "order_status", columnDefinition = "varchar(50)")
     var orderStatus: OrderStatus = OrderStatus.CREATED,
 
     @Embedded
     var orderAmounts: OrderAmounts = OrderAmounts.zero(),
+
+    @Column(name = "paid_at")
+    var paidAt: LocalDateTime? = null,
+
+    @CreatedDate
+    @Column(updatable = false)
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+
+    @LastModifiedDate
+    var updatedAt: LocalDateTime = LocalDateTime.now()
 ) {
 
     // JPA용 무인자 생성자 (필수). 외부 사용 금지.
@@ -33,26 +43,23 @@ class Order protected constructor(
         orderAmounts = OrderAmounts.zero(),
     )
 
+
+
     @Transient
     var orderLines: OrderLines = OrderLines(listOf())
-
-    @CreatedDate
-    @Column(updatable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now()
-
-    @LastModifiedDate
-    var updatedAt: LocalDateTime = LocalDateTime.now()
 
     fun calculate() {
         orderAmounts = OrderAmounts(orderLines.calculateSubTotal())
     }
 
     fun pending() {
+        updatedAt = LocalDateTime.now()
         orderStatus = OrderStatus.PENDING
     }
 
     fun complete() {
         updatedAt = LocalDateTime.now()
+        paidAt = LocalDateTime.now()
         orderStatus = OrderStatus.PAID
     }
 

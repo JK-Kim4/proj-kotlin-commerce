@@ -10,25 +10,18 @@ import com.tutomato.commerce.domain.payment.PaymentMethod
 import com.tutomato.commerce.domain.payment.PaymentRepository
 import com.tutomato.commerce.domain.payment.PaymentType
 import com.tutomato.commerce.domain.user.UserRepository
+import com.tutomato.commerce.support.annotation.SupportSql
 import com.tutomato.commerce.support.async.AsyncSupport.Companion.waitUntilNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.jdbc.Sql
 import org.testcontainers.junit.jupiter.Testcontainers
 import java.math.BigDecimal
 
 @SpringBootTest
 @Testcontainers
-@Sql(
-    scripts = [
-        "classpath:data/product.sql",
-        "classpath:data/user.sql",
-        "classpath:data/order_payment.sql",
-        ],
-    executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
-)
+@SupportSql
 class OrderPaymentPaidEventListenerTest(
     @Autowired private val orderProductFacade: OrderProductFacade,
     @Autowired private val paymentUserFacade: PaymentUserFacade,

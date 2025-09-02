@@ -33,8 +33,9 @@ class ProductService(private val productRepository: ProductRepository) {
         productRepository.save(option)
     }
 
-    fun decreaseStock(command: ProductCommand.Products) {
+    fun findByIds(productIds: Set<Long>): List<Product> {
 
+        return productRepository.findByIds(productIds);
     }
 
     fun updateStatus(command : ProductCommand.UpdateStatus) {
@@ -46,19 +47,11 @@ class ProductService(private val productRepository: ProductRepository) {
         productRepository.save(product)
     }
 
-    fun findAllOptionsWithPessimisticLock(optionIds: Set<Long>): List<Option> {
-        return productRepository.findAllOptionsByIdInForUpdate(optionIds)
-    }
-
     fun findOptionByOptionIdWithPessimisticLock(optionId: Long): Option {
         val option = productRepository.findOptionByOptionIdWithPessimisticLock(optionId)
             ?: throw NoResultException("상품이 존재하지않습니다.")
 
         return option
-    }
-
-    fun findOptionById(optionId: Long): Option? {
-        return productRepository.findOptionById(optionId)
     }
 
     @Transactional(readOnly = true)

@@ -21,6 +21,14 @@ class ProductRepositoryImpl(
             }
     }
 
+    override fun saveAll(products: List<Product>) {
+        products.forEach { product -> save(product) }
+    }
+
+    override fun flush() {
+        productJpaRepository.flush()
+    }
+
     override fun save(option: Option): Option {
         return optionJpaRepository.save<Option>(option)
     }
@@ -42,6 +50,10 @@ class ProductRepositoryImpl(
 
     override fun findOptionById(optionId: Long): Option? {
         return optionJpaRepository.findById(optionId).orElse(null)
+    }
+
+    override fun findByIds(productIds: Set<Long>): List<Product> {
+        return productJpaRepository.findByIdsIn(productIds)
     }
 
     override fun findOptionByOptionIdWithPessimisticLock(optionId: Long): Option? {

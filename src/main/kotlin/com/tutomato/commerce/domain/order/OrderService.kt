@@ -28,4 +28,14 @@ class OrderService(
 
         return order
     }
+
+    fun findPaidOrdersByCriteria(criteria: OrderCriteria.PaidOrders): List<Order> {
+        val startDateTime = criteria.period.getStartDateTime(criteria.calculatedAt)
+
+        return orderRepository.findPaidOrderBetween(startDateTime, criteria.calculatedAt)
+    }
+
+    fun findOrderLinesByOrderIds(orderIds: Set<Long>): List<OrderLine> {
+        return orderRepository.findOrderLinesByOrderIds(orderIds);
+    }
 }

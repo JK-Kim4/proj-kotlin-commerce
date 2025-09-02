@@ -16,10 +16,11 @@ class Product (
     var info: ProductInfo,
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "sale_status")
+    @Column(name = "sale_status", columnDefinition = "varchar(50)")
     var saleStatus: SaleStatus? = SaleStatus.ON_SALE,
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "category", columnDefinition = "varchar(50)")
     val category: Category,
 
     @Embedded
