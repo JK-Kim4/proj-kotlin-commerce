@@ -58,10 +58,15 @@ dependencies {
     // Test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.boot:spring-boot-testcontainers")
+	testImplementation("io.mockk:mockk:1.13.10")
+	testImplementation("org.mockito.kotlin:mockito-kotlin:5.3.1")
 	testImplementation("org.testcontainers:junit-jupiter")
 	testImplementation("org.testcontainers:mysql")
 	testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+	testImplementation(kotlin("test"))
+
 }
 
 tasks.withType<Test> {
