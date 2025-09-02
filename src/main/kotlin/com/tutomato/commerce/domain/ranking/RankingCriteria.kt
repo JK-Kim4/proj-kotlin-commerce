@@ -7,6 +7,6 @@ class RankingCriteria {
 
     data class Ranking(
         val period: OrderPeriod,
-        val calculatedAt: LocalDateTime,
+        val calculatedAt: LocalDateTime = LocalDateTime.now(),
     )
 }
