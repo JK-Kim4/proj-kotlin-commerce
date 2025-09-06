@@ -51,6 +51,10 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.redisson:redisson-spring-boot-starter:3.42.0")
+
+	// Common
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     // DB
 	runtimeOnly("com.mysql:mysql-connector-j")
