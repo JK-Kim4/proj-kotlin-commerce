@@ -1,6 +1,11 @@
 package com.tutomato.commerce.domain.coupon
 
 import com.tutomato.commerce.common.model.Money
+import com.tutomato.commerce.coupon.domain.AmountDiscountPolicy
+import com.tutomato.commerce.coupon.domain.CouponType
+import com.tutomato.commerce.coupon.domain.DiscountPolicy
+import com.tutomato.commerce.coupon.domain.DiscountPolicyFactory
+import com.tutomato.commerce.coupon.domain.RateDiscountPolicy
 import org.assertj.core.api.Assertions.assertThat
 
 

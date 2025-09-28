@@ -1,10 +1,10 @@
-package com.tutomato.commerce.domain.coupon
+package com.tutomato.commerce.coupon.domain
 
 import com.tutomato.commerce.common.model.Money
 import java.math.BigDecimal
 
-class AmountDiscountPolicy(
-    val discountValue: BigDecimal
+class RateDiscountPolicy(
+    private val discountValue: BigDecimal
 ): DiscountPolicy() {
 
     override fun calculateDiscountAmount(price: Money): Money {
@@ -12,6 +12,6 @@ class AmountDiscountPolicy(
     }
 
     override fun getDiscountAmount(price: Money): Money {
-        return Money(discountValue)
+        return price.times(discountValue)
     }
 }

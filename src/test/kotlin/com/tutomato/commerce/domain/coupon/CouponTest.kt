@@ -1,6 +1,8 @@
 package com.tutomato.commerce.domain.coupon
 
 import com.tutomato.commerce.common.model.Money
+import com.tutomato.commerce.coupon.domain.Coupon
+import com.tutomato.commerce.coupon.domain.CouponType
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

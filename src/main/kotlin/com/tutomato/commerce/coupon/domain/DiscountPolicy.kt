@@ -1,4 +1,4 @@
-package com.tutomato.commerce.domain.coupon
+package com.tutomato.commerce.coupon.domain
 
 import com.tutomato.commerce.common.model.Money
 

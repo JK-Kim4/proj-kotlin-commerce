@@ -1,13 +1,7 @@
-package com.tutomato.commerce.domain.coupon
+package com.tutomato.commerce.coupon.domain
 
 import com.tutomato.commerce.common.model.Money
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.EnumType
-import jakarta.persistence.Enumerated
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 import java.math.BigDecimal
 import java.time.Instant
 
