@@ -4,6 +4,7 @@ import com.tutomato.commerce.coupon.application.dto.CouponCommand
 import com.tutomato.commerce.coupon.application.dto.CouponResult
 import com.tutomato.commerce.coupon.application.port.`in`.IssueCouponUseCase
 
+/** 쿠폰 발급 */
 class IssueCouponService(
 ): IssueCouponUseCase {
 
