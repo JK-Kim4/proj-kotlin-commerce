@@ -1,6 +1,5 @@
 package com.tutomato.commerce.coupon.application.port.out
 
-import com.tutomato.commerce.coupon.application.dto.CouponResult
 import org.springframework.stereotype.Repository
 import java.time.OffsetDateTime
 
