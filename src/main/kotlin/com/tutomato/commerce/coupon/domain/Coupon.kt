@@ -4,6 +4,7 @@ import com.tutomato.commerce.common.model.Money
 import jakarta.persistence.*
 import java.math.BigDecimal
 import java.time.LocalDate
+import java.time.OffsetDateTime
 
 @Entity
 class Coupon(
@@ -24,9 +25,27 @@ class Coupon(
     @Column(name = "amount", nullable = false)
     var amount: Int = 0,
 
-    @Column(name = "expire_date", nullable = false)
-    val expireDate: LocalDate,
+    @Column(name = "expired_at", nullable = false)
+    val expiredAt: OffsetDateTime,
 ) {
+    companion object {
+        fun create(
+            name: String,
+            type: CouponType,
+            discountValue: BigDecimal,
+            amount: Int,
+            expiredAt: OffsetDateTime
+        ): Coupon {
+            return Coupon(
+                name = name,
+                type = type,
+                discountValue = discountValue,
+                amount = amount,
+                expiredAt = expiredAt
+            )
+        }
+    }
+
     fun toPolicy(): DiscountPolicy =
         DiscountPolicyFactory.from(type, discountValue)
 
@@ -36,4 +55,10 @@ class Coupon(
     fun calculateFinalPrice(price: Money): Money =
         toPolicy().calculateDiscountAmount(price)
             .coerceAtLeast(Money(BigDecimal.ZERO))
+
+    fun issuableValidation(requestedAt: OffsetDateTime) {
+        if(requestedAt.isAfter(expiredAt)) {
+            throw IllegalStateException("this coupon is already expired")
+        }
+    }
 }

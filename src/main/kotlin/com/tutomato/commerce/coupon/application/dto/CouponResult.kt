@@ -4,6 +4,7 @@ import com.tutomato.commerce.coupon.domain.Coupon
 import com.tutomato.commerce.coupon.domain.CouponType
 import java.math.BigDecimal
 import java.time.LocalDate
+import java.time.OffsetDateTime
 
 class CouponResult {
 
@@ -13,7 +14,7 @@ class CouponResult {
         val type: CouponType,
         val discountValue: BigDecimal,
         val amount: Int,
-        val expireDate: LocalDate,
+        val expiredAt: OffsetDateTime,
     ) {
         companion object {
             fun from(coupon: Coupon): Create {
@@ -23,7 +24,7 @@ class CouponResult {
                     type = coupon.type,
                     discountValue = coupon.discountValue,
                     amount = coupon.amount,
-                    expireDate = coupon.expireDate,
+                    expiredAt = coupon.expiredAt,
                 )
             }
         }

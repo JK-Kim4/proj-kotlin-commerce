@@ -4,7 +4,7 @@ import com.tutomato.commerce.coupon.domain.Coupon
 import org.springframework.stereotype.Repository
 
 @Repository
-interface CouponPersistencePort {
+interface PersisCouponPort {
 
     fun save(coupon: Coupon): Coupon
 }

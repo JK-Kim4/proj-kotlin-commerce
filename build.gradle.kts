@@ -10,14 +10,7 @@ plugins {
 
 val snippetsDir = layout.buildDirectory.dir("generated-snippets")
 
-fun getGitHash(): String {
-	return providers.exec {
-		commandLine("git", "rev-parse", "--short", "HEAD")
-	}.standardOutput.asText.get().trim()
-}
-
 group = "com.tutomato.commerce"
-version = getGitHash()
 
 java {
 	toolchain {

@@ -8,6 +8,8 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 import java.time.Instant
+import java.time.LocalDate
+import java.time.OffsetDateTime
 
 class CouponTest {
 
@@ -19,9 +21,10 @@ class CouponTest {
         val coupon = Coupon(
             id = 10,
             type = CouponType.RATE,
+            name = "10% 할인 쿠폰",
             discountValue = BigDecimal.valueOf(0.1),
             amount = 100,
-            expiredAt = Instant.now()
+            expiredAt = OffsetDateTime.now().plusDays(1),
         )
 
         //when
@@ -41,9 +44,10 @@ class CouponTest {
         val coupon = Coupon(
             id = 10,
             type = CouponType.AMOUNT,
+            name = "1000원 할인 쿠폰",
             discountValue = BigDecimal.valueOf(1000),
             amount = 100,
-            expiredAt = Instant.now()
+            expiredAt = OffsetDateTime.now().plusDays(1),
         )
 
         //when

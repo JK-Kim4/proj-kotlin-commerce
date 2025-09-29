@@ -2,7 +2,7 @@ package com.tutomato.commerce.coupon.application.port
 
 import com.tutomato.commerce.coupon.application.dto.CouponCommand
 import com.tutomato.commerce.coupon.application.dto.CouponResult
-import com.tutomato.commerce.coupon.application.port.out.CouponPersistencePort
+import com.tutomato.commerce.coupon.application.port.out.PersisCouponPort
 import com.tutomato.commerce.coupon.application.port.out.LoadCouponPort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class CreateCouponService(
     private val loadCouponPort: LoadCouponPort,
-    private val couponPersistencePort: CouponPersistencePort
+    private val couponPersistencePort: PersisCouponPort
 ) {
 
     fun execute(command: CouponCommand.Create): CouponResult.Create {

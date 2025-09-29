@@ -8,19 +8,25 @@ import java.time.OffsetDateTime
 
 class CouponCommand {
 
+    data class Request(
+        val couponId: Long,
+        val userId: Long,
+        val requestedDate: OffsetDateTime,
+    )
+
     data class Create(
         val name: String,
         val type: CouponType,
         val discountValue: BigDecimal,
         val amount: Int,
-        val expireDate: LocalDate,
+        val expiredAt: OffsetDateTime,
     ) {
         init {
             require(amount > 0) { "Amount must be positive" }
 
-            require(expireDate.isAfter(LocalDate.now())) { "Expiry date must be after date" }
+            require(expiredAt.isAfter(OffsetDateTime.now())) { "Expiry date must be after date" }
 
-            require(discountValue.compareTo(BigDecimal.ZERO) < 0) { "discountValue must be positive." }
+            require(discountValue > BigDecimal.ZERO) { "discountValue must be positive." }
 
             when (type) {
                 CouponType.RATE -> {
@@ -42,7 +48,7 @@ class CouponCommand {
                 type = type,
                 discountValue = discountValue,
                 amount = amount,
-                expireDate = expireDate,
+                expiredAt = expiredAt,
             )
         }
     }
